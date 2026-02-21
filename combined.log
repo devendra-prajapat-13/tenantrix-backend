@@ -10,3 +10,5 @@
 {"level":"info","message":"server running on port no. 3000","timestamp":"2026-02-20T11:07:27.808Z"}
 2026-02-20T11:08:26.332Z [[32minfo[39m]: connected to database
 2026-02-20T11:08:26.347Z [[32minfo[39m]: server running on port no. 3000
+2026-02-20T12:32:10.523Z [[32minfo[39m]: connected to database
+2026-02-20T12:32:10.531Z [[32minfo[39m]: server running on port no. 3000
