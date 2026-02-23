@@ -21,35 +21,45 @@ export const register = async (req, res) => {
     const { name, email, password, organizationName } = req.body;
 
     // validation
-    if (!name || !email || !password || !organizationName) {
+    if (!name?.trim() || !email?.trim() || !password?.trim() || !organizationName?.trim()){
       return errorResponse(
         res,
         STATUS_CODES.BAD_REQUEST,
-        "All fields are required",
+        "All fields are required"
       );
     }
-    const organizationIxist = await Organization.find({organizationName});
-    if (organizationIxist.organizationName===organizationName) {
+
+    // create slug for organization
+    const slug = organizationName
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9\s-]/g, "")
+      .replace(/\s+/g, "-");
+
+    // check duplicate organization slug
+    const existingOrg = await Organization.findOne({ slug });
+    if (existingOrg) {
       return errorResponse(
         res,
         STATUS_CODES.CONFLICT,
-        "Organization name are already in used",
+        "Organization name is already in use"
       );
     }
+
     // check existing user
     const existingUser = await User.findOne({ email });
+
     // CASE 1 — user exists & already verified
     if (existingUser && existingUser.isActive) {
       return errorResponse(
         res,
         STATUS_CODES.CONFLICT,
-        "User already exists. Please login.",
+        "User already exists. Please login."
       );
     }
 
-    // CASE 2 — user exists but NOT verified → resend OTP
+    // CASE 2 — user exists but NOT verified → resend OTP + token
     if (existingUser && !existingUser.isActive) {
-      // delete previous OTP
       await OTP.deleteMany({ email });
 
       const otpCode = generateOTP();
@@ -63,25 +73,32 @@ export const register = async (req, res) => {
       });
 
       const otpHTML = otpTemplate(otpCode, existingUser.name);
-
       await sendMail(email, "Verify your Tenantrix Account", otpHTML);
+
+      // generate token
+      const token = generateToken({
+        userId: existingUser._id,
+        organizationId: existingUser.organizationId,
+      });
 
       return successResponse(
         res,
         STATUS_CODES.OK,
-        "Account already exists but not verified. New OTP sent.",
+        "User already Exist But not verified.just check mail and verified your account",
+        {
+          user: {
+            _id: existingUser._id,
+            name: existingUser.name,
+            email: existingUser.email,
+            organizationId: existingUser.organizationId,
+            role: existingUser.role,
+          },
+        },
+        { token }
       );
     }
 
-    // CASE 3 — new user (normal registration flow)
-
-    // create slug for organization
-    const slug = organizationName
-      .toLowerCase()
-      .trim()
-      .replace(/[^a-z0-9\s-]/g, "")
-      .replace(/\s+/g, "-");
-
+    // CASE 3 — new user
     const organization = await Organization.create({
       name: organizationName,
       slug,
@@ -120,7 +137,6 @@ export const register = async (req, res) => {
     });
 
     const otpHTML = otpTemplate(otpCode, name);
-
     await sendMail(email, "Verify your Tenantrix Account", otpHTML);
 
     return successResponse(
@@ -136,14 +152,14 @@ export const register = async (req, res) => {
           role: user.role,
         },
       },
-      { token },
+      { token }
     );
   } catch (error) {
     console.error(error);
     return errorResponse(
       res,
       STATUS_CODES.INTERNAL_SERVER_ERROR,
-      "Something went wrong",
+      "Something went wrong"
     );
   }
 };

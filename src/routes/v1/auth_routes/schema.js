@@ -1,15 +1,17 @@
 import Joi from "joi";
 
 export const registerSchema = Joi.object({
-  name: Joi.string()
-    .trim()
-    .min(2)
-    .max(50)
-    .required()
-    .messages({
-      "string.empty": "Name is required",
-      "string.min": "Name must be at least 2 characters",
-    }),
+ name: Joi.string()
+  .trim()
+  .min(2)
+  .max(50)
+  .pattern(/^[A-Za-z\s]+$/) 
+  .required()
+  .messages({
+    "string.empty": "Name is required",
+    "string.min": "Name must be at least 2 characters",
+    "string.pattern.base": "Name must contain only alphabets",
+  }),
 
   email: Joi.string()
     .email()
