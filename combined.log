@@ -12,3 +12,128 @@
 2026-02-20T11:08:26.347Z [[32minfo[39m]: server running on port no. 3000
 2026-02-20T12:32:10.523Z [[32minfo[39m]: connected to database
 2026-02-20T12:32:10.531Z [[32minfo[39m]: server running on port no. 3000
+2026-02-21T19:38:17.341Z [[32minfo[39m]: connected to database
+2026-02-21T19:38:17.350Z [[32minfo[39m]: server running on port no. 3000
+2026-02-21T19:48:17.822Z [[32minfo[39m]: ::1 - - [21/Feb/2026:19:48:17 +0000] "POST /api/v1/auth/register HTTP/1.1" 500 50 "-" "PostmanRuntime/7.51.0"
+2026-02-21T19:53:57.446Z [[32minfo[39m]: connected to database
+2026-02-21T19:53:57.463Z [[32minfo[39m]: server running on port no. 3000
+2026-02-21T19:54:03.865Z [[32minfo[39m]: ::1 - - [21/Feb/2026:19:54:03 +0000] "POST /api/v1/auth/register HTTP/1.1" 500 50 "-" "PostmanRuntime/7.51.0"
+2026-02-21T19:54:35.789Z [[32minfo[39m]: connected to database
+2026-02-21T19:54:35.803Z [[32minfo[39m]: server running on port no. 3000
+2026-02-21T20:02:55.631Z [[32minfo[39m]: ::1 - - [21/Feb/2026:20:02:55 +0000] "POST /api/v1/auth/register HTTP/1.1" 500 50 "-" "PostmanRuntime/7.51.0"
+2026-02-22T08:01:30.769Z [[32minfo[39m]: connected to database
+2026-02-22T08:01:30.781Z [[32minfo[39m]: server running on port no. 3000
+2026-02-22T08:01:44.495Z [[32minfo[39m]: ::1 - - [22/Feb/2026:08:01:44 +0000] "POST /api/v1/auth/register HTTP/1.1" 500 50 "-" "PostmanRuntime/7.51.0"
+2026-02-22T08:05:26.003Z [[32minfo[39m]: connected to database
+2026-02-22T08:05:26.027Z [[32minfo[39m]: server running on port no. 3000
+2026-02-22T08:07:45.884Z [[32minfo[39m]: connected to database
+2026-02-22T08:07:45.911Z [[32minfo[39m]: server running on port no. 3000
+2026-02-22T08:08:10.018Z [[32minfo[39m]: ::1 - - [22/Feb/2026:08:08:10 +0000] "POST /api/v1/auth/register HTTP/1.1" 409 49 "-" "PostmanRuntime/7.51.0"
+2026-02-22T08:19:09.125Z [[32minfo[39m]: ::1 - - [22/Feb/2026:08:19:09 +0000] "POST /api/v1/auth/register HTTP/1.1" 500 50 "-" "PostmanRuntime/7.51.0"
+2026-02-22T08:20:39.614Z [[32minfo[39m]: connected to database
+2026-02-22T08:20:39.641Z [[32minfo[39m]: server running on port no. 3000
+2026-02-22T08:20:54.957Z [[32minfo[39m]: ::1 - - [22/Feb/2026:08:20:54 +0000] "POST /api/v1/auth/register HTTP/1.1" 500 50 "-" "PostmanRuntime/7.51.0"
+2026-02-22T08:25:03.726Z [[32minfo[39m]: connected to database
+2026-02-22T08:25:03.750Z [[32minfo[39m]: server running on port no. 3000
+2026-02-22T08:27:38.432Z [[32minfo[39m]: connected to database
+2026-02-22T08:27:38.453Z [[32minfo[39m]: server running on port no. 3000
+2026-02-22T08:27:53.046Z [[32minfo[39m]: ::1 - - [22/Feb/2026:08:27:53 +0000] "POST /api/v1/auth/register HTTP/1.1" 500 50 "-" "PostmanRuntime/7.51.0"
+2026-02-22T08:34:33.938Z [[32minfo[39m]: connected to database
+2026-02-22T08:34:33.962Z [[32minfo[39m]: server running on port no. 3000
+2026-02-22T08:35:10.453Z [[32minfo[39m]: ::1 - - [22/Feb/2026:08:35:10 +0000] "POST /api/v1/auth/register HTTP/1.1" 500 50 "-" "PostmanRuntime/7.51.0"
+2026-02-22T08:40:26.097Z [[32minfo[39m]: connected to database
+2026-02-22T08:40:26.118Z [[32minfo[39m]: server running on port no. 3000
+2026-02-22T08:41:11.978Z [[32minfo[39m]: ::1 - - [22/Feb/2026:08:41:11 +0000] "POST /api/v1/auth/register HTTP/1.1" 201 529 "-" "PostmanRuntime/7.51.0"
+2026-02-22T08:47:35.809Z [[32minfo[39m]: ::1 - - [22/Feb/2026:08:47:35 +0000] "POST /api/v1/auth/register HTTP/1.1" 400 64 "-" "PostmanRuntime/7.51.0"
+2026-02-22T08:47:50.943Z [[32minfo[39m]: ::1 - - [22/Feb/2026:08:47:50 +0000] "POST /api/v1/auth/register HTTP/1.1" 400 50 "-" "PostmanRuntime/7.51.0"
+2026-02-22T08:48:02.314Z [[32minfo[39m]: ::1 - - [22/Feb/2026:08:48:02 +0000] "POST /api/v1/auth/register HTTP/1.1" 409 49 "-" "PostmanRuntime/7.51.0"
+2026-02-22T08:48:17.051Z [[32minfo[39m]: ::1 - - [22/Feb/2026:08:48:17 +0000] "POST /api/v1/auth/register HTTP/1.1" 400 68 "-" "PostmanRuntime/7.51.0"
+2026-02-22T08:48:53.931Z [[32minfo[39m]: ::1 - - [22/Feb/2026:08:48:53 +0000] "POST /api/v1/auth/register HTTP/1.1" 400 99 "-" "PostmanRuntime/7.51.0"
+2026-02-22T08:55:10.340Z [[32minfo[39m]: ::1 - - [22/Feb/2026:08:55:10 +0000] "POST /api/v1/auth/verifyOtp HTTP/1.1" 404 161 "-" "PostmanRuntime/7.51.0"
+2026-02-22T08:56:42.368Z [[32minfo[39m]: ::1 - - [22/Feb/2026:08:56:42 +0000] "POST /api/v1/auth/verifyOtp HTTP/1.1" 404 161 "-" "PostmanRuntime/7.51.0"
+2026-02-22T08:56:59.206Z [[32minfo[39m]: connected to database
+2026-02-22T08:56:59.218Z [[32minfo[39m]: server running on port no. 3000
+2026-02-22T08:57:21.507Z [[32minfo[39m]: ::1 - - [22/Feb/2026:08:57:21 +0000] "POST /api/v1/auth/verifyOtp HTTP/1.1" 400 41 "-" "PostmanRuntime/7.51.0"
+2026-02-22T08:58:32.476Z [[32minfo[39m]: ::1 - - [22/Feb/2026:08:58:32 +0000] "POST /api/v1/auth/register HTTP/1.1" 201 529 "-" "PostmanRuntime/7.51.0"
+2026-02-22T08:59:16.301Z [[32minfo[39m]: ::1 - - [22/Feb/2026:08:59:16 +0000] "POST /api/v1/auth/verifyOtp HTTP/1.1" 200 58 "-" "PostmanRuntime/7.51.0"
+2026-02-22T09:10:21.237Z [[32minfo[39m]: connected to database
+2026-02-22T09:10:21.261Z [[32minfo[39m]: server running on port no. 3000
+2026-02-22T09:10:26.652Z [[32minfo[39m]: ::1 - - [22/Feb/2026:09:10:26 +0000] "POST /api/v1/auth/register HTTP/1.1" 500 50 "-" "PostmanRuntime/7.51.0"
+2026-02-22T09:11:24.003Z [[32minfo[39m]: connected to database
+2026-02-22T09:11:24.016Z [[32minfo[39m]: server running on port no. 3000
+2026-02-22T09:11:34.303Z [[32minfo[39m]: ::1 - - [22/Feb/2026:09:11:34 +0000] "POST /api/v1/auth/register HTTP/1.1" 201 513 "-" "PostmanRuntime/7.51.0"
+2026-02-22T09:13:07.295Z [[32minfo[39m]: ::1 - - [22/Feb/2026:09:13:07 +0000] "POST /api/v1/auth/verifyOtp HTTP/1.1" 200 58 "-" "PostmanRuntime/7.51.0"
+2026-02-22T11:25:26.231Z [[32minfo[39m]: ::1 - - [22/Feb/2026:11:25:26 +0000] "POST /api/v1/auth/register HTTP/1.1" 409 49 "-" "PostmanRuntime/7.51.0"
+2026-02-22T11:25:38.505Z [[32minfo[39m]: ::1 - - [22/Feb/2026:11:25:38 +0000] "POST /api/v1/auth/register HTTP/1.1" 500 50 "-" "PostmanRuntime/7.51.0"
+2026-02-22T11:26:58.181Z [[32minfo[39m]: ::1 - - [22/Feb/2026:11:26:58 +0000] "POST /api/v1/auth/register HTTP/1.1" 201 514 "-" "PostmanRuntime/7.51.0"
+2026-02-22T11:28:30.491Z [[32minfo[39m]: ::1 - - [22/Feb/2026:11:28:30 +0000] "POST /api/v1/auth/verifyOtp HTTP/1.1" 400 41 "-" "PostmanRuntime/7.51.0"
+2026-02-22T11:28:48.741Z [[32minfo[39m]: ::1 - - [22/Feb/2026:11:28:48 +0000] "POST /api/v1/auth/verifyOtp HTTP/1.1" 200 58 "-" "PostmanRuntime/7.51.0"
+2026-02-23T12:27:52.360Z [[32minfo[39m]: connected to database
+2026-02-23T12:27:52.387Z [[32minfo[39m]: server running on port no. 3000
+2026-02-23T12:30:36.479Z [[32minfo[39m]: ::1 - - [23/Feb/2026:12:30:36 +0000] "POST /api/v1/auth/register HTTP/1.1" 400 46 "-" "PostmanRuntime/7.51.1"
+2026-02-23T12:31:01.214Z [[32minfo[39m]: ::1 - - [23/Feb/2026:12:31:01 +0000] "POST /api/v1/auth/register HTTP/1.1" 500 50 "-" "PostmanRuntime/7.51.1"
+2026-02-23T12:36:53.021Z [[32minfo[39m]: connected to database
+2026-02-23T12:36:53.053Z [[32minfo[39m]: server running on port no. 3000
+2026-02-23T12:37:22.528Z [[32minfo[39m]: ::1 - - [23/Feb/2026:12:37:22 +0000] "POST /api/v1/auth/register HTTP/1.1" 201 513 "-" "PostmanRuntime/7.51.1"
+2026-02-23T12:38:22.758Z [[32minfo[39m]: ::1 - - [23/Feb/2026:12:38:22 +0000] "POST /api/v1/auth/verifyOtp HTTP/1.1" 400 41 "-" "PostmanRuntime/7.51.1"
+2026-02-23T12:38:33.479Z [[32minfo[39m]: ::1 - - [23/Feb/2026:12:38:33 +0000] "POST /api/v1/auth/verifyOtp HTTP/1.1" 400 41 "-" "PostmanRuntime/7.51.1"
+2026-02-23T12:38:46.692Z [[32minfo[39m]: ::1 - - [23/Feb/2026:12:38:46 +0000] "POST /api/v1/auth/verifyOtp HTTP/1.1" 200 58 "-" "PostmanRuntime/7.51.1"
+2026-02-23T12:56:05.401Z [[32minfo[39m]: ::1 - - [23/Feb/2026:12:56:05 +0000] "POST /api/v1/auth/register HTTP/1.1" 201 513 "-" "PostmanRuntime/7.51.1"
+2026-02-23T12:56:38.411Z [[32minfo[39m]: ::1 - - [23/Feb/2026:12:56:38 +0000] "POST /api/v1/auth/verifyOtp HTTP/1.1" 200 58 "-" "PostmanRuntime/7.51.1"
+2026-02-23T13:24:37.654Z [[32minfo[39m]: ::1 - - [23/Feb/2026:13:24:37 +0000] "POST /api/v1/auth/login HTTP/1.1" 404 157 "-" "PostmanRuntime/7.51.1"
+2026-02-23T13:25:58.583Z [[32minfo[39m]: connected to database
+2026-02-23T13:25:58.608Z [[32minfo[39m]: server running on port no. 3000
+2026-02-23T13:26:16.728Z [[32minfo[39m]: ::1 - - [23/Feb/2026:13:26:16 +0000] "POST /api/v1/auth/login HTTP/1.1" 200 444 "-" "PostmanRuntime/7.51.1"
+2026-02-23T13:27:18.551Z [[32minfo[39m]: ::1 - - [23/Feb/2026:13:27:18 +0000] "POST /api/v1/auth/login HTTP/1.1" 403 62 "-" "PostmanRuntime/7.51.1"
+2026-02-23T13:27:52.620Z [[32minfo[39m]: ::1 - - [23/Feb/2026:13:27:52 +0000] "POST /api/v1/auth/login HTTP/1.1" 403 62 "-" "PostmanRuntime/7.51.1"
+2026-02-23T13:28:04.734Z [[32minfo[39m]: ::1 - - [23/Feb/2026:13:28:04 +0000] "POST /api/v1/auth/resendOtp HTTP/1.1" 200 52 "-" "PostmanRuntime/7.51.1"
+2026-02-23T13:28:49.971Z [[32minfo[39m]: ::1 - - [23/Feb/2026:13:28:49 +0000] "POST /api/v1/auth/resendOtp HTTP/1.1" 200 52 "-" "PostmanRuntime/7.51.1"
+2026-02-23T13:30:53.937Z [[32minfo[39m]: ::1 - - [23/Feb/2026:13:30:53 +0000] "POST /api/v1/auth/verifyOtp HTTP/1.1" 400 41 "-" "PostmanRuntime/7.51.1"
+2026-02-23T13:31:31.891Z [[32minfo[39m]: ::1 - - [23/Feb/2026:13:31:31 +0000] "POST /api/v1/auth/resendOtp HTTP/1.1" 200 52 "-" "PostmanRuntime/7.51.1"
+2026-02-23T13:31:55.747Z [[32minfo[39m]: ::1 - - [23/Feb/2026:13:31:55 +0000] "POST /api/v1/auth/verifyOtp HTTP/1.1" 200 58 "-" "PostmanRuntime/7.51.1"
+2026-02-23T13:51:14.530Z [[32minfo[39m]: ::1 - - [23/Feb/2026:13:51:14 +0000] "POST /api/v1/auth/register HTTP/1.1" 409 49 "-" "PostmanRuntime/7.51.1"
+2026-02-23T16:01:41.920Z [[32minfo[39m]: ::1 - - [23/Feb/2026:16:01:41 +0000] "POST /api/v1/auth/register HTTP/1.1" 500 50 "-" "PostmanRuntime/7.51.1"
+2026-02-23T16:02:33.375Z [[32minfo[39m]: connected to database
+2026-02-23T16:02:33.390Z [[32minfo[39m]: server running on port no. 3000
+2026-02-23T16:02:39.063Z [[32minfo[39m]: ::1 - - [23/Feb/2026:16:02:39 +0000] "POST /api/v1/auth/register HTTP/1.1" 500 50 "-" "PostmanRuntime/7.51.1"
+2026-02-23T16:11:05.036Z [[32minfo[39m]: ::1 - - [23/Feb/2026:16:11:05 +0000] "POST /api/v1/auth/register HTTP/1.1" 500 50 "-" "PostmanRuntime/7.51.1"
+2026-02-23T16:12:29.375Z [[32minfo[39m]: ::1 - - [23/Feb/2026:16:12:29 +0000] "POST /api/v1/auth/register HTTP/1.1" 500 50 "-" "PostmanRuntime/7.51.1"
+2026-02-23T16:16:22.178Z [[32minfo[39m]: ::1 - - [23/Feb/2026:16:16:22 +0000] "POST /api/v1/auth/register HTTP/1.1" 500 50 "-" "PostmanRuntime/7.51.1"
+2026-02-23T16:25:45.480Z [[32minfo[39m]: ::1 - - [23/Feb/2026:16:25:45 +0000] "POST /api/v1/auth/register HTTP/1.1" 500 50 "-" "PostmanRuntime/7.51.1"
+2026-02-23T16:27:56.572Z [[31merror[39m]: error:  Server selection timed out after 30000 ms
+2026-02-23T16:30:43.994Z [[31merror[39m]: error:  Server selection timed out after 30000 ms
+2026-02-23T16:33:13.000Z [[32minfo[39m]: connected to database
+2026-02-23T16:33:13.010Z [[32minfo[39m]: server running on port no. 3000
+2026-02-23T16:33:30.348Z [[32minfo[39m]: ::1 - - [23/Feb/2026:16:33:30 +0000] "POST /api/v1/auth/register HTTP/1.1" 500 50 "-" "PostmanRuntime/7.51.1"
+2026-02-23T16:35:47.051Z [[32minfo[39m]: connected to database
+2026-02-23T16:35:47.064Z [[32minfo[39m]: server running on port no. 3000
+2026-02-23T16:36:02.213Z [[32minfo[39m]: ::1 - - [23/Feb/2026:16:36:02 +0000] "POST /api/v1/auth/register HTTP/1.1" 500 50 "-" "PostmanRuntime/7.51.1"
+2026-02-23T16:39:11.342Z [[32minfo[39m]: connected to database
+2026-02-23T16:39:11.351Z [[32minfo[39m]: server running on port no. 3000
+2026-02-23T16:39:16.755Z [[32minfo[39m]: ::1 - - [23/Feb/2026:16:39:16 +0000] "POST /api/v1/auth/register HTTP/1.1" 500 50 "-" "PostmanRuntime/7.51.1"
+2026-02-23T16:42:49.260Z [[32minfo[39m]: connected to database
+2026-02-23T16:42:49.266Z [[32minfo[39m]: server running on port no. 3000
+2026-02-23T16:42:55.057Z [[32minfo[39m]: ::1 - - [23/Feb/2026:16:42:55 +0000] "POST /api/v1/auth/register HTTP/1.1" 500 50 "-" "PostmanRuntime/7.51.1"
+2026-02-23T16:43:55.200Z [[32minfo[39m]: connected to database
+2026-02-23T16:43:55.212Z [[32minfo[39m]: server running on port no. 3000
+2026-02-23T16:44:12.211Z [[32minfo[39m]: connected to database
+2026-02-23T16:44:12.218Z [[32minfo[39m]: server running on port no. 3000
+2026-02-23T16:44:16.554Z [[32minfo[39m]: ::1 - - [23/Feb/2026:16:44:16 +0000] "POST /api/v1/auth/register HTTP/1.1" 409 67 "-" "PostmanRuntime/7.51.1"
+2026-02-23T16:45:41.433Z [[32minfo[39m]: ::1 - - [23/Feb/2026:16:45:41 +0000] "POST /api/v1/auth/register HTTP/1.1" 400 69 "-" "PostmanRuntime/7.51.1"
+2026-02-23T16:46:30.611Z [[32minfo[39m]: ::1 - - [23/Feb/2026:16:46:30 +0000] "POST /api/v1/auth/register HTTP/1.1" 400 88 "-" "PostmanRuntime/7.51.1"
+2026-02-23T16:47:21.492Z [[32minfo[39m]: ::1 - - [23/Feb/2026:16:47:21 +0000] "POST /api/v1/auth/register HTTP/1.1" 400 88 "-" "PostmanRuntime/7.51.1"
+2026-02-23T16:48:23.103Z [[32minfo[39m]: ::1 - - [23/Feb/2026:16:48:23 +0000] "POST /api/v1/auth/register HTTP/1.1" 409 67 "-" "PostmanRuntime/7.51.1"
+2026-02-23T16:49:01.444Z [[32minfo[39m]: ::1 - - [23/Feb/2026:16:49:01 +0000] "POST /api/v1/auth/register HTTP/1.1" 409 67 "-" "PostmanRuntime/7.51.1"
+2026-02-23T16:51:01.215Z [[31merror[39m]: error:  read ECONNRESET
+2026-02-23T16:51:34.827Z [[32minfo[39m]: connected to database
+2026-02-23T16:51:34.836Z [[32minfo[39m]: server running on port no. 3000
+2026-02-23T16:51:40.892Z [[32minfo[39m]: ::1 - - [23/Feb/2026:16:51:40 +0000] "POST /api/v1/auth/register HTTP/1.1" 409 67 "-" "PostmanRuntime/7.51.1"
+2026-02-23T16:52:48.949Z [[32minfo[39m]: ::1 - - [23/Feb/2026:16:52:48 +0000] "POST /api/v1/auth/register HTTP/1.1" 409 67 "-" "PostmanRuntime/7.51.1"
+2026-02-23T16:53:49.011Z [[32minfo[39m]: connected to database
+2026-02-23T16:53:49.018Z [[32minfo[39m]: server running on port no. 3000
+2026-02-23T16:54:21.160Z [[32minfo[39m]: ::1 - - [23/Feb/2026:16:54:21 +0000] "POST /api/v1/auth/register HTTP/1.1" 201 505 "-" "PostmanRuntime/7.51.1"
+2026-02-23T16:57:21.391Z [[32minfo[39m]: ::1 - - [23/Feb/2026:16:57:21 +0000] "POST /api/v1/auth/verifyOtp HTTP/1.1" 400 41 "-" "PostmanRuntime/7.51.1"
+2026-02-23T16:57:47.514Z [[32minfo[39m]: ::1 - - [23/Feb/2026:16:57:47 +0000] "POST /api/v1/auth/verifyOtp HTTP/1.1" 200 58 "-" "PostmanRuntime/7.51.1"
+2026-02-23T17:01:29.456Z [[32minfo[39m]: ::1 - - [23/Feb/2026:17:01:29 +0000] "POST /api/v1/auth/register HTTP/1.1" 409 64 "-" "PostmanRuntime/7.51.1"
+2026-02-23T17:03:14.885Z [[32minfo[39m]: ::1 - - [23/Feb/2026:17:03:14 +0000] "POST /api/v1/auth/register HTTP/1.1" 201 505 "-" "PostmanRuntime/7.51.1"
+2026-02-23T17:04:14.286Z [[32minfo[39m]: ::1 - - [23/Feb/2026:17:04:14 +0000] "POST /api/v1/auth/register HTTP/1.1" 200 83 "-" "PostmanRuntime/7.51.1"
