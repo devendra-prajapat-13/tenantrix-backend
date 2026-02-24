@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config();
 import app from "./app.js";
 import { dbconnect } from "./config/db.config.js";
 import logger from "./logger.js";
