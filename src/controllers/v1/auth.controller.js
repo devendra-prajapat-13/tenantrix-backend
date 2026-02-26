@@ -188,7 +188,7 @@ export const login = async (req, res) => {
       return errorResponse(
         res,
         STATUS_CODES.UNAUTHORIZED,
-        "Invalid credentials",
+        "User Does not exist Or not found",
       );
     }
 
