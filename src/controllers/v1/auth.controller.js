@@ -21,44 +21,22 @@ export const register = async (req, res) => {
     const { name, email, password, organizationName } = req.body;
 
     // validation
-    if (!name?.trim() || !email?.trim() || !password?.trim() || !organizationName?.trim()){
+    if (
+      !name?.trim() ||
+      !email?.trim() ||
+      !password?.trim() ||
+      !organizationName?.trim()
+    ) {
       return errorResponse(
         res,
         STATUS_CODES.BAD_REQUEST,
-        "All fields are required"
-      );
-    }
-
-    // create slug for organization
-    const slug = organizationName
-      .toLowerCase()
-      .trim()
-      .replace(/[^a-z0-9\s-]/g, "")
-      .replace(/\s+/g, "-");
-
-    // check duplicate organization slug
-    const existingOrg = await Organization.findOne({ slug });
-    if (existingOrg) {
-      return errorResponse(
-        res,
-        STATUS_CODES.CONFLICT,
-        "Organization name is already in use"
+        "All fields are required",
       );
     }
 
     // check existing user
     const existingUser = await User.findOne({ email });
-
-    // CASE 1 — user exists & already verified
-    if (existingUser && existingUser.isActive) {
-      return errorResponse(
-        res,
-        STATUS_CODES.CONFLICT,
-        "User already exists. Please login."
-      );
-    }
-
-    // CASE 2 — user exists but NOT verified → resend OTP + token
+    // CASE 1 — user exists but NOT verified → resend OTP + token
     if (existingUser && !existingUser.isActive) {
       await OTP.deleteMany({ email });
 
@@ -94,7 +72,33 @@ export const register = async (req, res) => {
             role: existingUser.role,
           },
         },
-        { token }
+        { token },
+      );
+    }
+   console.log("sdjsldgjlkddsgs");
+    // CASE 2 — user exists & already verified
+    if (existingUser && existingUser.isActive) {
+      return errorResponse(
+        res,
+        STATUS_CODES.CONFLICT,
+        "User already exists. Please login.",
+      );
+    }
+ console.log("sdjsldgjlkddsgs");
+    // create slug for organization
+    const slug = organizationName
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9\s-]/g, "")
+      .replace(/\s+/g, "-");
+
+    // check duplicate organization slug
+    const existingOrg = await Organization.findOne({ slug });
+    if (existingOrg) {
+      return errorResponse(
+        res,
+        STATUS_CODES.CONFLICT,
+        "Organization name is already in use",
       );
     }
 
@@ -152,14 +156,14 @@ export const register = async (req, res) => {
           role: user.role,
         },
       },
-      { token }
+      { token },
     );
   } catch (error) {
     console.error(error);
     return errorResponse(
       res,
       STATUS_CODES.INTERNAL_SERVER_ERROR,
-      "Something went wrong"
+      "Something went wrong",
     );
   }
 };
