@@ -75,7 +75,7 @@ export const register = async (req, res) => {
         { token },
       );
     }
-   console.log("sdjsldgjlkddsgs");
+
     // CASE 2 — user exists & already verified
     if (existingUser && existingUser.isActive) {
       return errorResponse(
@@ -84,7 +84,7 @@ export const register = async (req, res) => {
         "User already exists. Please login.",
       );
     }
- console.log("sdjsldgjlkddsgs");
+  
     // create slug for organization
     const slug = organizationName
       .toLowerCase()
@@ -289,12 +289,12 @@ export const verifyOTP = async (req, res) => {
     const welcomeHTML = welcomeTemplate({
       firstName: user.name,
       organizationName: user.organizationName,
-      dashboardUrl: "https://app.tenantrix.com/dashboard",
+      dashboardUrl: `${process.env.FRONTEND_URL}/dashboard`,
       userEmail: user.email,
       planName: "Free",
-      workspaceUrl: `https://${user.organizationName}.tenantrix.com`,
+      workspaceUrl: `http://${user.organizationName}.${process.env.APP_DOMAIN}`,
       companyAddress: "Indore, India",
-      companyWebsite: "https://tenantrix.com",
+      companyWebsite: process.env.FRONTEND_URL,
     });
 
     await sendMail(
