@@ -84,7 +84,7 @@ export const register = async (req, res) => {
         "User already exists. Please login.",
       );
     }
-  
+
     // create slug for organization
     const slug = organizationName
       .toLowerCase()
@@ -372,6 +372,24 @@ export const resendOTP = async (req, res) => {
       res,
       STATUS_CODES.INTERNAL_SERVER_ERROR,
       "Failed to resend OTP",
+    );
+  }
+};
+
+export const verifyToken = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.userId).select("-password")
+
+    if (!user) {
+      return errorResponse(res, STATUS_CODES.NOT_FOUND, "User not found");
+    }
+
+    return successResponse(res, STATUS_CODES.OK, "Token is valid", { user });
+  } catch (error) {
+    return errorResponse(
+      res,
+      STATUS_CODES.INTERNAL_SERVER_ERROR,
+      "Failed to fetch user",
     );
   }
 };
