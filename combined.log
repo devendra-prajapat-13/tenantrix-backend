@@ -192,3 +192,16 @@
 2026-02-26T17:14:16.434Z [[32minfo[39m]: ::1 - - [26/Feb/2026:17:14:16 +0000] "POST /api/v1/auth/verifyOtp HTTP/1.1" 200 58 "-" "PostmanRuntime/7.51.1"
 2026-02-26T17:15:52.429Z [[32minfo[39m]: ::1 - - [26/Feb/2026:17:15:52 +0000] "POST /api/v1/auth/register HTTP/1.1" 409 64 "-" "PostmanRuntime/7.51.1"
 2026-02-26T17:16:02.365Z [[32minfo[39m]: ::1 - - [26/Feb/2026:17:16:02 +0000] "POST /api/v1/auth/register HTTP/1.1" 409 64 "-" "PostmanRuntime/7.51.1"
+2026-02-26T18:10:35.002Z [[32minfo[39m]: connected to database
+2026-02-26T18:10:35.018Z [[32minfo[39m]: server running on port no. 3000
+2026-02-26T18:10:40.776Z [[32minfo[39m]: ::1 - - [26/Feb/2026:18:10:40 +0000] "POST /api/v1/auth/login HTTP/1.1" 401 62 "-" "PostmanRuntime/7.51.1"
+2026-02-26T18:10:59.129Z [[32minfo[39m]: ::1 - - [26/Feb/2026:18:10:59 +0000] "POST /api/v1/auth/login HTTP/1.1" 400 50 "-" "PostmanRuntime/7.51.1"
+2026-02-26T18:11:16.937Z [[32minfo[39m]: ::1 - - [26/Feb/2026:18:11:16 +0000] "POST /api/v1/auth/login HTTP/1.1" 200 444 "-" "PostmanRuntime/7.51.1"
+2026-02-26T18:11:26.372Z [[32minfo[39m]: ::1 - - [26/Feb/2026:18:11:26 +0000] "POST /api/v1/auth/login HTTP/1.1" 401 49 "-" "PostmanRuntime/7.51.1"
+2026-02-26T18:11:47.026Z [[32minfo[39m]: ::1 - - [26/Feb/2026:18:11:47 +0000] "POST /api/v1/auth/login HTTP/1.1" 401 62 "-" "PostmanRuntime/7.51.1"
+2026-02-26T18:17:15.821Z [[32minfo[39m]: ::1 - - [26/Feb/2026:18:17:15 +0000] "POST /api/v1/auth/register HTTP/1.1" 409 65 "-" "PostmanRuntime/7.51.1"
+2026-02-26T18:17:40.883Z [[32minfo[39m]: ::1 - - [26/Feb/2026:18:17:40 +0000] "POST /api/v1/auth/register HTTP/1.1" 201 514 "-" "PostmanRuntime/7.51.1"
+2026-02-26T18:18:09.169Z [[32minfo[39m]: ::1 - - [26/Feb/2026:18:18:09 +0000] "POST /api/v1/auth/login HTTP/1.1" 403 62 "-" "PostmanRuntime/7.51.1"
+2026-02-26T18:55:42.123Z [[32minfo[39m]: ::1 - - [26/Feb/2026:18:55:42 +0000] "POST /api/v1/auth/login HTTP/1.1" 403 62 "-" "PostmanRuntime/7.51.1"
+2026-02-26T18:55:49.305Z [[32minfo[39m]: ::1 - - [26/Feb/2026:18:55:49 +0000] "POST /api/v1/auth/login HTTP/1.1" 200 444 "-" "PostmanRuntime/7.51.1"
+2026-02-26T18:55:58.663Z [[32minfo[39m]: ::1 - - [26/Feb/2026:18:55:58 +0000] "POST /api/v1/auth/login HTTP/1.1" 401 62 "-" "PostmanRuntime/7.51.1"
