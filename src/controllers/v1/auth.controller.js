@@ -14,7 +14,10 @@ import { generateOTP } from "../../utils/helper/otp.js";
 import {
   welcomeTemplate,
   otpTemplate,
+  resetPasswordTemplate,
 } from "../../services/mailer/templates/email.template.js";
+import { PasswordReset } from "../../models/resetPassword.schema.js";
+import crypto from "crypto";
 
 export const register = async (req, res) => {
   try {
@@ -324,18 +327,14 @@ export const verifyOTP = async (req, res) => {
 export const resendOTP = async (req, res) => {
   try {
     const { email } = req.body;
-
     if (!email) {
       return errorResponse(res, STATUS_CODES.BAD_REQUEST, "Email is required");
     }
-
     // check user
     const user = await User.findOne({ email });
-
     if (!user) {
       return errorResponse(res, STATUS_CODES.NOT_FOUND, "User not found");
     }
-
     // already verified
     if (user.isActive) {
       return errorResponse(
@@ -344,27 +343,20 @@ export const resendOTP = async (req, res) => {
         "User already verified",
       );
     }
-
     // delete previous OTPs (clean approach)
     await OTP.deleteMany({ email });
-
     // generate new otp
     const otpCode = generateOTP();
-
     const saltKey = await bcrypt.genSalt(12);
     const hashedOtp = await bcrypt.hash(otpCode, saltKey);
-
     await OTP.create({
       email,
       otp: hashedOtp,
       expiresAt: new Date(Date.now() + 10 * 60 * 1000),
     });
-
     // send email
     const otpHTML = otpTemplate(otpCode, user.name);
-
     await sendMail(email, "Resend OTP - Verify your Account", otpHTML);
-
     return successResponse(res, STATUS_CODES.OK, "OTP resent successfully");
   } catch (error) {
     console.error(error);
@@ -378,7 +370,7 @@ export const resendOTP = async (req, res) => {
 
 export const verifyToken = async (req, res) => {
   try {
-    const user = await User.findById(req.user.userId).select("-password")
+    const user = await User.findById(req.user.userId).select("-password");
 
     if (!user) {
       return errorResponse(res, STATUS_CODES.NOT_FOUND, "User not found");
@@ -390,6 +382,150 @@ export const verifyToken = async (req, res) => {
       res,
       STATUS_CODES.INTERNAL_SERVER_ERROR,
       "Failed to fetch user",
+    );
+  }
+};
+
+export const forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) {
+      return errorResponse(res, STATUS_CODES.BAD_REQUEST, "Email is required");
+    }
+    const user = await User.findOne({ email });
+    if (!user) {
+      return successResponse(
+        res,
+        STATUS_CODES.NOT_FOUND,
+        "User does not exist",
+      );
+    }
+    if (user && !user.isActive) {
+      await OTP.deleteMany({ email });
+
+      const otpCode = generateOTP();
+      const saltKey = await bcrypt.genSalt(12);
+      const hashedOtp = await bcrypt.hash(otpCode, saltKey);
+
+      await OTP.create({
+        email,
+        otp: hashedOtp,
+        expiresAt: new Date(Date.now() + 10 * 60 * 1000),
+      });
+
+      const otpHTML = otpTemplate(otpCode, user.name);
+      await sendMail(email, "Verify your Tenantrix Account", otpHTML);
+
+      // generate token
+      const token = generateToken({
+        userId: user._id,
+        organizationId: user.organizationId,
+      });
+
+      return successResponse(
+        res,
+        STATUS_CODES.OK,
+        "User already Exist But not verified.just check mail and verified your account",
+        {},
+        { token },
+      );
+    }
+    // Remove old tokens
+    await PasswordReset.deleteMany({ userId: user._id });
+    const rawToken = crypto.randomBytes(32).toString("hex");
+    const hashedToken = await bcrypt.hash(rawToken, 10);
+    await PasswordReset.create({
+      userId: user._id,
+      token: hashedToken,
+      expiresAt: Date.now() + 15 * 60 * 1000,
+    });
+    const resetUrl = `http://localhost:3000/reset-password/${rawToken}`;
+    const resetEmailTemplate = resetPasswordTemplate(user.name, resetUrl, 10);
+    await sendMail(
+      user.email,
+      "Reset Your Password – Tenantrix",
+      resetEmailTemplate,
+    );
+    return successResponse(
+      res,
+      STATUS_CODES.OK,
+      "reset password link sent to register email",
+      {},
+      { rawToken },
+    );
+  } catch (error) {
+    console.error(error);
+    return errorResponse(
+      res,
+      STATUS_CODES.INTERNAL_SERVER_ERROR,
+      "Something went wrong",
+    );
+  }
+};
+
+export const resetPassword = async (req, res) => {
+  try {
+    const { token, newPassword, confirmPassword } = req.body;
+
+    if (!token || !newPassword || !confirmPassword) {
+      return errorResponse(
+        res,
+        STATUS_CODES.BAD_REQUEST,
+        "Token, new password and confirm password are required",
+      );
+    }
+
+    if (newPassword !== confirmPassword) {
+      return errorResponse(
+        res,
+        STATUS_CODES.BAD_REQUEST,
+        "Passwords do not match",
+      );
+    }
+
+    const resetRecord = await PasswordReset.findOne({
+      expiresAt: { $gt: Date.now() },
+    });
+
+    if (!resetRecord) {
+      return errorResponse(
+        res,
+        STATUS_CODES.BAD_REQUEST,
+        "Invalid Link  expired token",
+      );
+    }
+
+    const isMatch = await bcrypt.compare(token, resetRecord.token);
+
+    if (!isMatch) {
+      return errorResponse(
+        res,
+        STATUS_CODES.BAD_REQUEST,
+        "Invalid or expired token",
+      );
+    }
+
+    const user = await User.findById(resetRecord.userId);
+
+    if (!user) {
+      return errorResponse(res, STATUS_CODES.BAD_REQUEST, "User not found");
+    }
+
+    const salt = await bcrypt.genSalt(12);
+    user.password = await bcrypt.hash(newPassword, salt);
+
+    await user.save();
+
+    // One-time token removal
+    await PasswordReset.deleteMany({ userId: user._id });
+
+    return successResponse(res, STATUS_CODES.OK, "Password reset successful");
+  } catch (error) {
+    console.error(error);
+    return errorResponse(
+      res,
+      STATUS_CODES.INTERNAL_SERVER_ERROR,
+      "Reset failed",
     );
   }
 };

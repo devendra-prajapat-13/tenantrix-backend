@@ -90,3 +90,47 @@ export const otpTemplate = (otpCode, name = "User") => {
   `;
 };
 
+export const resetPasswordTemplate = (name,resetLink,expiryTime = 10) => {
+  return `
+    <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
+
+      <h2>Reset Your Password – Tenantrix</h2>
+
+      <p>Hi ${name},</p>
+
+      <p>
+        We received a request to reset your password for your Tenantrix account.
+      </p>
+
+      <p>
+        Click the link below to set a new password:
+      </p>
+
+      <p>
+        👉 <a href="${resetLink}">${resetLink}</a>
+      </p>
+
+      <p>
+        This link will expire in <strong>${expiryTime}</strong> minutes for security reasons.
+      </p>
+
+      <p>
+        If you did not request a password reset, please ignore this email.
+        Your account will remain secure.
+      </p>
+
+      <p>
+        If you need help, feel free to contact our support team.
+      </p>
+
+      <br/>
+
+      <p>
+        Best regards,<br/>
+        <strong>Team Tenantrix</strong>
+      </p>
+
+    </div>
+  `;
+};
+
