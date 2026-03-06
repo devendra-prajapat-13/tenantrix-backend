@@ -424,7 +424,7 @@ export const forgotPassword = async (req, res) => {
 
       return successResponse(
         res,
-        STATUS_CODES.OK,
+        STATUS_CODES.TEMPORARY_REDIRECT,
         "User already Exist But not verified.just check mail and verified your account",
         {},
         { token },
