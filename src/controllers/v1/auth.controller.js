@@ -18,6 +18,7 @@ import {
 } from "../../services/mailer/templates/email.template.js";
 import { PasswordReset } from "../../models/resetPassword.schema.js";
 import crypto from "crypto";
+import { error } from "console";
 
 export const register = async (req, res) => {
   try {
