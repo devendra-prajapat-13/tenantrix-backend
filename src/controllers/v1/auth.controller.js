@@ -15,6 +15,7 @@ import {
   welcomeTemplate,
   otpTemplate,
   resetPasswordTemplate,
+  passwordResetSuccessTemplate
 } from "../../services/mailer/templates/email.template.js";
 import { PasswordReset } from "../../models/resetPassword.schema.js";
 import crypto from "crypto";
@@ -498,7 +499,7 @@ export const resetPassword = async (req, res) => {
       return errorResponse(
         res,
         STATUS_CODES.BAD_REQUEST,
-        "Invalid Link  expired token",
+        "Invalid Link or expired token",
       );
     }
     const isMatch = await bcrypt.compare(token, resetRecord.token);
@@ -518,6 +519,14 @@ export const resetPassword = async (req, res) => {
     await user.save();
     // One-time token removal
     await PasswordReset.deleteMany({ userId: user._id });
+
+     // SEND EMAIL AFTER SUCCESS
+    const emailTemplate = passwordResetSuccessTemplate(user.name);
+    await sendMail(
+      user.email,
+      "Your Password Has Been Updated – Tenantrix",
+      emailTemplate
+    );
     return successResponse(res, STATUS_CODES.OK, "Password reset successful");
   } catch (error) {
     console.error(error);
