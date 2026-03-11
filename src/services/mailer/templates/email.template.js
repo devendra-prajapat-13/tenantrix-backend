@@ -134,3 +134,32 @@ export const resetPasswordTemplate = (name,resetLink,expiryTime = 10) => {
   `;
 };
 
+export const passwordResetSuccessTemplate = (name) => {
+  return `
+    <div style="font-family: Arial, sans-serif; padding:20px;">
+      <h2>Password Changed Successfully</h2>
+
+      <p>Hi ${name},</p>
+
+      <p>Your password for your <b>Tenantrix</b> account has been successfully updated.</p>
+
+      <p>If you made this change, no further action is required.</p>
+
+      <p><b>If you did not perform this action, please contact our support team immediately.</b></p>
+
+      <br/>
+
+      <p>For security reasons we recommend:</p>
+
+      <ul>
+        <li>Review your account activity</li>
+        <li>Update your password again</li>
+      </ul>
+
+      <br/>
+
+      <p>Best regards,</p>
+      <p><b>Team Tenantrix</b></p>
+    </div>
+  `;
+};
