@@ -206,7 +206,31 @@
  *               rawToken: "generated_reset_token"
  */
 
-
+/**
+ * @swagger
+ * /v1/auth/verify-reset-token/{token}:
+ *   get:
+ *     summary: Verify password reset token
+ *     tags: [Auth]
+ *     parameters:
+ *       - in: path
+ *         name: token
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: |
+ *           Send token in the params
+ *           Example: /v1/auth/verify-reset-token/your_token_here
+ *         example: "a1b2c3d4e5f6..."
+ *     responses:
+ *       200:
+ *         description: Token is valid
+ *         content:
+ *           application/json:
+ *             example:
+ *               success: true
+ *               message: Token is valid
+ */
 /**
  * @swagger
  * /v1/auth/reset-password:
