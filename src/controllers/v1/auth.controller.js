@@ -25,7 +25,6 @@ export const register = async (req, res) => {
   try {
     const { name, email, password, organizationName } = req.body;
 
-    // validation
     if (
       !name?.trim() ||
       !email?.trim() ||
@@ -39,102 +38,55 @@ export const register = async (req, res) => {
       );
     }
 
-    // check existing user
     const existingUser = await User.findOne({ email });
-    // CASE 1 — user exists but NOT verified → resend OTP + token
-    if (existingUser && !existingUser.isActive) {
-      await OTP.deleteMany({ email });
 
-      const otpCode = generateOTP();
-      const saltKey = await bcrypt.genSalt(12);
-      const hashedOtp = await bcrypt.hash(otpCode, saltKey);
-
-      await OTP.create({
-        email,
-        otp: hashedOtp,
-        expiresAt: new Date(Date.now() + 10 * 60 * 1000),
-      });
-
-      const otpHTML = otpTemplate(otpCode, existingUser.name);
-      await sendMail(email, "Verify your Tenantrix Account", otpHTML);
-
-      // generate token
-      const token = generateToken({
-        userId: existingUser._id,
-        organizationId: existingUser.organizationId,
-      });
-
-      return successResponse(
+    if (existingUser) {
+      return errorResponse(
         res,
-        STATUS_CODES.OK,
-        "User already Exist But not verified.just check mail and verified your account",
-        {
-          user: {
-            _id: existingUser._id,
-            name: existingUser.name,
-            email: existingUser.email,
-            organizationId: existingUser.organizationId,
-            role: existingUser.role,
-            isActive: existingUser.isActive,
-          },
-        },
-        { token },
+        STATUS_CODES.CONFLICT,
+        "Email already registered",
       );
     }
 
-    // CASE 2 — user exists & already verified
-    if (existingUser && existingUser.isActive) {
-      return errorResponse(res, STATUS_CODES.CONFLICT, "Email already in use");
-    }
-
-    // create slug for organization
     const slug = organizationName
       .toLowerCase()
       .trim()
       .replace(/[^a-z0-9\s-]/g, "")
       .replace(/\s+/g, "-");
 
-    // check duplicate organization slug
     const existingOrg = await Organization.findOne({ slug });
     if (existingOrg) {
       return errorResponse(
         res,
         STATUS_CODES.CONFLICT,
-        "Organization name is already in use",
+        "Organization name already in use",
       );
     }
 
-    // CASE 3 — new user
     const organization = await Organization.create({
       name: organizationName,
       slug,
       ownerId: null,
     });
 
-    const saltKey = await bcrypt.genSalt(12);
-    const hashedPassword = await bcrypt.hash(password, saltKey);
-
+    const salt = await bcrypt.genSalt(12);
+    const hashedPassword = await bcrypt.hash(password, salt);
     const user = await User.create({
       name,
       email,
       password: hashedPassword,
       role: USER_ROLES.OWNER,
-      organizationName,
+      organizationName:organizationName,
       organizationId: organization._id,
       isActive: false,
     });
-
+    
     organization.ownerId = user._id;
     await organization.save();
 
-    const token = generateToken({
-      userId: user._id,
-      organizationId: organization._id,
-    });
-
-    // Generate OTP
+    // generate OTP
     const otpCode = generateOTP();
-    const hashedOtp = await bcrypt.hash(otpCode, saltKey);
+    const hashedOtp = await bcrypt.hash(otpCode, salt);
 
     await OTP.create({
       email,
@@ -148,7 +100,7 @@ export const register = async (req, res) => {
     return successResponse(
       res,
       STATUS_CODES.CREATED,
-      "Registration successful. Please verify your account using the OTP sent to your email.",
+      "Registration successful. Please verify OTP sent to your Email",
       {
         user: {
           _id: user._id,
@@ -159,7 +111,6 @@ export const register = async (req, res) => {
           isActive: user.isActive,
         },
       },
-      { token },
     );
   } catch (error) {
     console.error(error);
@@ -174,7 +125,6 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    // basic validation
     if (!email || !password) {
       return errorResponse(
         res,
@@ -182,52 +132,10 @@ export const login = async (req, res) => {
         "Email and password are required",
       );
     }
-    // find user
     const user = await User.findOne({ email });
     if (!user) {
-      return errorResponse(
-        res,
-        STATUS_CODES.UNAUTHORIZED,
-        "User Does not exist Or not found",
-      );
+      return errorResponse(res, STATUS_CODES.UNAUTHORIZED, "User not found");
     }
-    if (user && !user.isActive) {
-      await OTP.deleteMany({ email });
-
-      const otpCode = generateOTP();
-      const saltKey = await bcrypt.genSalt(12);
-      const hashedOtp = await bcrypt.hash(otpCode, saltKey);
-
-      await OTP.create({
-        email,
-        otp: hashedOtp,
-        expiresAt: new Date(Date.now() + 10 * 60 * 1000),
-      });
-      const otpHTML = otpTemplate(otpCode, user.name);
-      await sendMail(email, "Verify your Tenantrix Account", otpHTML);
-      // generate token
-      const token = generateToken({
-        userId: user._id,
-        organizationId: user.organizationId,
-      });
-      return successResponse(
-        res,
-        STATUS_CODES.OK,
-        "Account Exist But not verified yet.just check mail and verified your account",
-        {
-          user: {
-            _id: user._id,
-            name: user.name,
-            email: user.email,
-            organizationId: user.organizationId,
-            role: user.role,
-            isActive: user.isActive,
-          },
-        },
-        { token },
-      );
-    }
-    // compare password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return errorResponse(
@@ -236,11 +144,12 @@ export const login = async (req, res) => {
         "Invalid credentials",
       );
     }
-    // generate token
+
     const token = generateToken({
       userId: user._id,
       organizationId: user.organizationId,
     });
+
     return successResponse(
       res,
       STATUS_CODES.OK,
@@ -259,10 +168,60 @@ export const login = async (req, res) => {
     );
   } catch (error) {
     console.error(error);
+
     return errorResponse(
       res,
       STATUS_CODES.INTERNAL_SERVER_ERROR,
       "Login failed",
+    );
+  }
+};
+
+export const checkUserActive = async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) {
+      return errorResponse(res, STATUS_CODES.BAD_REQUEST, "Email is required");
+    }
+    const user = await User.findOne({ email });
+    if (!user) {
+      return errorResponse(res, STATUS_CODES.NOT_FOUND, "User not found");
+    }
+    if (user.isActive) {
+      return successResponse(res, STATUS_CODES.OK, "User account already verified", {
+        isActive: true,
+      });
+    }
+
+    // resend OTP
+    await OTP.deleteMany({ email });
+
+    const otpCode = generateOTP();
+    const salt = await bcrypt.genSalt(12);
+    const hashedOtp = await bcrypt.hash(otpCode, salt);
+
+    await OTP.create({
+      email,
+      otp: hashedOtp,
+      expiresAt: new Date(Date.now() + 10 * 60 * 1000),
+    });
+
+    const otpHTML = otpTemplate(otpCode, user.name);
+    await sendMail(email, "Verify your Tenantrix Account", otpHTML);
+
+    return successResponse(
+      res,
+      STATUS_CODES.OK,
+      "Account not verified. OTP sent to your email",
+      { isActive: false },
+    );
+  } catch (error) {
+    console.error(error);
+
+    return errorResponse(
+      res,
+      STATUS_CODES.INTERNAL_SERVER_ERROR,
+      "Something went wrong",
     );
   }
 };

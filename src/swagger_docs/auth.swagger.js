@@ -5,7 +5,6 @@
  *   description: Authentication APIs
  */
 
-
 /**
  * @swagger
  * /v1/auth/register:
@@ -53,7 +52,6 @@
  *               token: "jwt_token_here"
  */
 
-
 /**
  * @swagger
  * /v1/auth/login:
@@ -93,6 +91,36 @@
  *               token: "jwt_token_here"
  */
 
+/**
+ * @swagger
+ * /v1/auth/check-user-active:
+ *   post:
+ *     summary: Check if user is active or not and send OTP if not verified
+ *     tags:
+ *       - Auth
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: dev@yopmail.com
+ *     responses:
+ *       200:
+ *         description: User status checked successfully
+ *         content:
+ *           application/json:
+ *             example:
+ *               success: true
+ *               message: User account already verified
+ *               data:
+ *                 isActive: true
+ */
 
 /**
  * @swagger
@@ -125,7 +153,6 @@
  *               message: Account verified successfully
  */
 
-
 /**
  * @swagger
  * /v1/auth/resendOtp:
@@ -154,7 +181,6 @@
  *               message: OTP resent successfully
  */
 
-
 /**
  * @swagger
  * /v1/auth/verify-token:
@@ -177,7 +203,6 @@
  *                 email: dev@yopmail.com
  *                 role: owner
  */
-
 
 /**
  * @swagger
@@ -218,9 +243,7 @@
  *         required: true
  *         schema:
  *           type: string
- *         description: |
- *           Send token in the params
- *           Example: /v1/auth/verify-reset-token/your_token_here
+ *         description: Send token in the params
  *         example: "a1b2c3d4e5f6..."
  *     responses:
  *       200:
@@ -231,6 +254,7 @@
  *               success: true
  *               message: Token is valid
  */
+
 /**
  * @swagger
  * /v1/auth/reset-password:
