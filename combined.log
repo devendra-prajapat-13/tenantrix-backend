@@ -640,3 +640,98 @@
 2026-03-19T08:15:55.481Z [[32minfo[39m]: ::1 - - [19/Mar/2026:08:15:55 +0000] "POST /api/v1/auth/check-user-active HTTP/1.1" 200 74 "-" "PostmanRuntime/7.51.1"
 2026-03-19T08:16:49.846Z [[32minfo[39m]: ::1 - - [19/Mar/2026:08:16:49 +0000] "POST /api/v1/auth/check-user-active HTTP/1.1" 200 74 "http://localhost:3000/api-docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
 2026-03-19T08:20:27.915Z [[32minfo[39m]: ::1 - - [19/Mar/2026:08:20:27 +0000] "POST /api/v1/auth/check-user-active HTTP/1.1" 404 44 "http://localhost:3000/api-docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-03-27T05:04:48.538Z [[32minfo[39m]: connected to database
+2026-03-27T05:04:48.557Z [[32minfo[39m]: server running on port no. 3000
+2026-03-27T05:04:54.938Z [[32minfo[39m]: ::1 - - [27/Mar/2026:05:04:54 +0000] "GET /api-docs/ HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-03-27T05:04:55.122Z [[32minfo[39m]: ::1 - - [27/Mar/2026:05:04:55 +0000] "GET /api-docs/swagger-ui.css HTTP/1.1" 304 - "http://localhost:3000/api-docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-03-27T05:04:55.144Z [[32minfo[39m]: ::1 - - [27/Mar/2026:05:04:55 +0000] "GET /api-docs/swagger-ui-init.js HTTP/1.1" 304 - "http://localhost:3000/api-docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-03-27T05:04:55.148Z [[32minfo[39m]: ::1 - - [27/Mar/2026:05:04:55 +0000] "GET /api-docs/swagger-ui-bundle.js HTTP/1.1" 304 - "http://localhost:3000/api-docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-03-27T05:04:55.151Z [[32minfo[39m]: ::1 - - [27/Mar/2026:05:04:55 +0000] "GET /api-docs/swagger-ui-standalone-preset.js HTTP/1.1" 304 - "http://localhost:3000/api-docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-03-27T05:04:55.905Z [[32minfo[39m]: ::1 - - [27/Mar/2026:05:04:55 +0000] "GET /api-docs/favicon-32x32.png HTTP/1.1" 304 - "http://localhost:3000/api-docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-03-27T05:06:32.663Z [[32minfo[39m]: ::1 - - [27/Mar/2026:05:06:32 +0000] "POST /api/v1/auth/register HTTP/1.1" 400 68 "http://localhost:3000/api-docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-03-27T05:06:49.051Z [[32minfo[39m]: ::1 - - [27/Mar/2026:05:06:49 +0000] "POST /api/v1/auth/register HTTP/1.1" 201 261 "http://localhost:3000/api-docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-03-27T05:07:39.126Z [[32minfo[39m]: ::1 - - [27/Mar/2026:05:07:39 +0000] "POST /api/v1/auth/check-user-active HTTP/1.1" 200 90 "http://localhost:3000/api-docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-03-27T05:22:40.239Z [[32minfo[39m]: connected to database
+2026-03-27T05:22:40.256Z [[32minfo[39m]: server running on port no. 3000
+2026-03-27T07:31:07.763Z [[32minfo[39m]: connected to database
+2026-03-27T07:31:07.775Z [[32minfo[39m]: server running on port no. 3000
+2026-03-27T07:31:20.649Z [[32minfo[39m]: ::1 - - [27/Mar/2026:07:31:20 +0000] "GET /api-docs/ HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-03-27T07:31:20.794Z [[32minfo[39m]: ::1 - - [27/Mar/2026:07:31:20 +0000] "GET /api-docs/swagger-ui-standalone-preset.js HTTP/1.1" 304 - "http://localhost:3000/api-docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-03-27T07:31:20.808Z [[32minfo[39m]: ::1 - - [27/Mar/2026:07:31:20 +0000] "GET /api-docs/swagger-ui.css HTTP/1.1" 304 - "http://localhost:3000/api-docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-03-27T07:31:20.820Z [[32minfo[39m]: ::1 - - [27/Mar/2026:07:31:20 +0000] "GET /api-docs/swagger-ui-init.js HTTP/1.1" 200 13211 "http://localhost:3000/api-docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-03-27T07:31:20.830Z [[32minfo[39m]: ::1 - - [27/Mar/2026:07:31:20 +0000] "GET /api-docs/swagger-ui-bundle.js HTTP/1.1" 304 - "http://localhost:3000/api-docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-03-27T07:31:21.437Z [[32minfo[39m]: ::1 - - [27/Mar/2026:07:31:21 +0000] "GET /api-docs/favicon-32x32.png HTTP/1.1" 304 - "http://localhost:3000/api-docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-03-27T07:34:20.833Z [[32minfo[39m]: connected to database
+2026-03-27T07:34:20.842Z [[32minfo[39m]: server running on port no. 3000
+2026-03-27T07:36:41.387Z [[32minfo[39m]: ::1 - - [27/Mar/2026:07:36:41 +0000] "POST /api/v1/auth/register HTTP/1.1" 201 261 "-" "PostmanRuntime/7.51.1"
+2026-03-27T07:37:53.264Z [[32minfo[39m]: ::1 - - [27/Mar/2026:07:37:53 +0000] "POST /api/v1/auth/verifyOtp HTTP/1.1" 200 58 "-" "PostmanRuntime/7.51.1"
+2026-03-27T07:55:38.207Z [[32minfo[39m]: connected to database
+2026-03-27T07:55:38.223Z [[32minfo[39m]: server running on port no. 3000
+2026-03-27T07:55:54.788Z [[32minfo[39m]: ::1 - - [27/Mar/2026:07:55:54 +0000] "POST /api/v1/auth/register HTTP/1.1" 409 62 "-" "PostmanRuntime/7.51.1"
+2026-03-27T07:56:03.936Z [[32minfo[39m]: ::1 - - [27/Mar/2026:07:56:03 +0000] "POST /api/v1/auth/register HTTP/1.1" 409 54 "-" "PostmanRuntime/7.51.1"
+2026-03-27T07:56:17.353Z [[32minfo[39m]: ::1 - - [27/Mar/2026:07:56:17 +0000] "POST /api/v1/auth/register HTTP/1.1" 201 507 "-" "PostmanRuntime/7.51.1"
+2026-03-27T07:56:45.966Z [[32minfo[39m]: connected to database
+2026-03-27T07:56:45.987Z [[32minfo[39m]: server running on port no. 3000
+2026-03-27T07:58:25.064Z [[32minfo[39m]: ::1 - - [27/Mar/2026:07:58:25 +0000] "POST /api/v1/auth/verifyOtp HTTP/1.1" 400 41 "-" "PostmanRuntime/7.51.1"
+2026-03-27T07:58:36.839Z [[32minfo[39m]: ::1 - - [27/Mar/2026:07:58:36 +0000] "POST /api/v1/auth/verifyOtp HTTP/1.1" 200 58 "-" "PostmanRuntime/7.51.1"
+2026-03-27T08:50:48.303Z [[32minfo[39m]: connected to database
+2026-03-27T08:50:48.313Z [[32minfo[39m]: server running on port no. 3000
+2026-03-27T08:52:27.931Z [[32minfo[39m]: ::1 - - [27/Mar/2026:08:52:27 +0000] "POST /api/v1/auth/register HTTP/1.1" 201 507 "-" "PostmanRuntime/7.51.1"
+2026-03-27T08:53:15.724Z [[32minfo[39m]: ::1 - - [27/Mar/2026:08:53:15 +0000] "POST /api/v1/auth/verifyOtp HTTP/1.1" 200 58 "-" "PostmanRuntime/7.51.1"
+2026-03-27T08:53:30.412Z [[32minfo[39m]: ::1 - - [27/Mar/2026:08:53:30 +0000] "GET /api/v1/auth/verify-token HTTP/1.1" 401 54 "-" "PostmanRuntime/7.51.1"
+2026-03-27T08:53:57.206Z [[32minfo[39m]: ::1 - - [27/Mar/2026:08:53:57 +0000] "GET /api/v1/auth/verify-token HTTP/1.1" 200 399 "-" "PostmanRuntime/7.51.1"
+2026-03-27T08:54:21.551Z [[32minfo[39m]: ::1 - - [27/Mar/2026:08:54:21 +0000] "GET /api-docs/ HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-03-27T08:54:21.655Z [[32minfo[39m]: ::1 - - [27/Mar/2026:08:54:21 +0000] "GET /api-docs/swagger-ui.css HTTP/1.1" 304 - "http://localhost:3000/api-docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-03-27T08:54:21.657Z [[32minfo[39m]: ::1 - - [27/Mar/2026:08:54:21 +0000] "GET /api-docs/swagger-ui-bundle.js HTTP/1.1" 304 - "http://localhost:3000/api-docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-03-27T08:54:21.677Z [[32minfo[39m]: ::1 - - [27/Mar/2026:08:54:21 +0000] "GET /api-docs/swagger-ui-init.js HTTP/1.1" 200 13170 "http://localhost:3000/api-docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-03-27T08:54:21.694Z [[32minfo[39m]: ::1 - - [27/Mar/2026:08:54:21 +0000] "GET /api-docs/swagger-ui-standalone-preset.js HTTP/1.1" 304 - "http://localhost:3000/api-docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-03-27T08:54:22.238Z [[32minfo[39m]: ::1 - - [27/Mar/2026:08:54:22 +0000] "GET /api-docs/favicon-32x32.png HTTP/1.1" 304 - "http://localhost:3000/api-docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-03-27T09:05:11.309Z [[32minfo[39m]: ::1 - - [27/Mar/2026:09:05:11 +0000] "POST /api/v1/auth/login HTTP/1.1" 200 71 "-" "PostmanRuntime/7.51.1"
+2026-03-27T09:07:18.700Z [[32minfo[39m]: connected to database
+2026-03-27T09:07:18.725Z [[32minfo[39m]: server running on port no. 3000
+2026-03-27T09:07:29.341Z [[32minfo[39m]: ::1 - - [27/Mar/2026:09:07:29 +0000] "POST /api/v1/auth/login HTTP/1.1" 200 82 "-" "PostmanRuntime/7.51.1"
+2026-03-27T09:08:20.438Z [[32minfo[39m]: ::1 - - [27/Mar/2026:09:08:20 +0000] "POST /api/v1/auth/verifyOtp HTTP/1.1" 200 762 "-" "PostmanRuntime/7.51.1"
+2026-03-27T10:47:11.104Z [[32minfo[39m]: ::1 - - [27/Mar/2026:10:47:11 +0000] "POST /api/v1/auth/register HTTP/1.1" 201 507 "-" "PostmanRuntime/7.51.1"
+2026-03-27T10:47:55.801Z [[32minfo[39m]: ::1 - - [27/Mar/2026:10:47:55 +0000] "POST /api/v1/auth/verifyOtp HTTP/1.1" 400 41 "-" "PostmanRuntime/7.51.1"
+2026-03-27T10:48:12.430Z [[32minfo[39m]: ::1 - - [27/Mar/2026:10:48:12 +0000] "POST /api/v1/auth/verifyOtp HTTP/1.1" 200 58 "-" "PostmanRuntime/7.51.1"
+2026-03-27T10:48:59.022Z [[32minfo[39m]: ::1 - - [27/Mar/2026:10:48:59 +0000] "POST /api/v1/auth/login HTTP/1.1" 200 82 "-" "PostmanRuntime/7.51.1"
+2026-03-27T10:49:55.762Z [[32minfo[39m]: ::1 - - [27/Mar/2026:10:49:55 +0000] "POST /api/v1/auth/verifyOtp HTTP/1.1" 200 762 "-" "PostmanRuntime/7.51.1"
+2026-03-27T12:21:02.701Z [[32minfo[39m]: connected to database
+2026-03-27T12:21:02.709Z [[32minfo[39m]: server running on port no. 3000
+2026-03-27T12:21:36.736Z [[32minfo[39m]: ::1 - - [27/Mar/2026:12:21:36 +0000] "POST /api/v1/auth/login HTTP/1.1" 200 104 "-" "PostmanRuntime/7.51.1"
+2026-03-27T12:22:26.953Z [[32minfo[39m]: ::1 - - [27/Mar/2026:12:22:26 +0000] "POST /api/v1/auth/login HTTP/1.1" 401 49 "-" "PostmanRuntime/7.51.1"
+2026-03-27T12:22:30.994Z [[32minfo[39m]: ::1 - - [27/Mar/2026:12:22:30 +0000] "POST /api/v1/auth/login HTTP/1.1" 401 49 "-" "PostmanRuntime/7.51.1"
+2026-03-27T12:22:38.547Z [[32minfo[39m]: ::1 - - [27/Mar/2026:12:22:38 +0000] "POST /api/v1/auth/login HTTP/1.1" 401 49 "-" "PostmanRuntime/7.51.1"
+2026-03-27T12:22:42.641Z [[32minfo[39m]: ::1 - - [27/Mar/2026:12:22:42 +0000] "POST /api/v1/auth/login HTTP/1.1" 403 57 "-" "PostmanRuntime/7.51.1"
+2026-03-27T12:22:56.643Z [[32minfo[39m]: ::1 - - [27/Mar/2026:12:22:56 +0000] "POST /api/v1/auth/login HTTP/1.1" 403 57 "-" "PostmanRuntime/7.51.1"
+2026-03-27T12:23:36.200Z [[32minfo[39m]: ::1 - - [27/Mar/2026:12:23:36 +0000] "POST /api/v1/auth/resendOtp HTTP/1.1" 200 58 "-" "PostmanRuntime/7.51.1"
+2026-03-27T12:26:28.410Z [[32minfo[39m]: ::1 - - [27/Mar/2026:12:26:28 +0000] "POST /api/v1/auth/resendOtp HTTP/1.1" 404 44 "-" "PostmanRuntime/7.51.1"
+2026-03-27T12:26:31.024Z [[32minfo[39m]: ::1 - - [27/Mar/2026:12:26:31 +0000] "POST /api/v1/auth/resendOtp HTTP/1.1" 404 44 "-" "PostmanRuntime/7.51.1"
+2026-03-27T12:26:32.841Z [[32minfo[39m]: ::1 - - [27/Mar/2026:12:26:32 +0000] "POST /api/v1/auth/resendOtp HTTP/1.1" 404 44 "-" "PostmanRuntime/7.51.1"
+2026-03-27T12:26:34.817Z [[32minfo[39m]: ::1 - - [27/Mar/2026:12:26:34 +0000] "POST /api/v1/auth/resendOtp HTTP/1.1" 404 44 "-" "PostmanRuntime/7.51.1"
+2026-03-27T12:26:36.622Z [[32minfo[39m]: ::1 - - [27/Mar/2026:12:26:36 +0000] "POST /api/v1/auth/resendOtp HTTP/1.1" 404 44 "-" "PostmanRuntime/7.51.1"
+2026-03-27T12:26:50.057Z [[32minfo[39m]: ::1 - - [27/Mar/2026:12:26:50 +0000] "POST /api/v1/auth/resendOtp HTTP/1.1" 200 58 "-" "PostmanRuntime/7.51.1"
+2026-03-27T12:32:54.370Z [[32minfo[39m]: ::1 - - [27/Mar/2026:12:32:54 +0000] "POST /api/v1/auth/resendOtp HTTP/1.1" 200 58 "-" "PostmanRuntime/7.51.1"
+2026-03-27T12:32:56.980Z [[32minfo[39m]: ::1 - - [27/Mar/2026:12:32:56 +0000] "POST /api/v1/auth/resendOtp HTTP/1.1" 429 54 "-" "PostmanRuntime/7.51.1"
+2026-03-27T12:33:06.809Z [[32minfo[39m]: ::1 - - [27/Mar/2026:12:33:06 +0000] "POST /api/v1/auth/resendOtp HTTP/1.1" 429 54 "-" "PostmanRuntime/7.51.1"
+2026-03-27T12:34:27.124Z [[32minfo[39m]: ::1 - - [27/Mar/2026:12:34:27 +0000] "POST /api/v1/auth/resendOtp HTTP/1.1" 429 54 "-" "PostmanRuntime/7.51.1"
+2026-03-27T12:34:49.338Z [[32minfo[39m]: connected to database
+2026-03-27T12:34:49.352Z [[32minfo[39m]: server running on port no. 3000
+2026-03-27T12:35:01.102Z [[32minfo[39m]: ::1 - - [27/Mar/2026:12:35:01 +0000] "POST /api/v1/auth/resendOtp HTTP/1.1" 429 54 "-" "PostmanRuntime/7.51.1"
+2026-03-27T12:37:53.069Z [[32minfo[39m]: connected to database
+2026-03-27T12:37:53.079Z [[32minfo[39m]: server running on port no. 3000
+2026-03-30T05:01:30.772Z [[32minfo[39m]: connected to database
+2026-03-30T05:01:30.800Z [[32minfo[39m]: server running on port no. 3000
+2026-03-30T05:02:50.264Z [[32minfo[39m]: ::1 - - [30/Mar/2026:05:02:50 +0000] "POST /api/v1/auth/resendOtp HTTP/1.1" 429 54 "-" "PostmanRuntime/7.51.1"
+2026-03-30T05:03:15.164Z [[32minfo[39m]: ::1 - - [30/Mar/2026:05:03:15 +0000] "POST /api/v1/auth/login HTTP/1.1" 200 104 "-" "PostmanRuntime/7.51.1"
+2026-03-30T05:04:57.612Z [[32minfo[39m]: ::1 - - [30/Mar/2026:05:04:57 +0000] "POST /api/v1/auth/resendOtp HTTP/1.1" 200 58 "-" "PostmanRuntime/7.51.1"
+2026-03-30T05:05:17.431Z [[32minfo[39m]: ::1 - - [30/Mar/2026:05:05:17 +0000] "POST /api/v1/auth/resendOtp HTTP/1.1" 200 58 "-" "PostmanRuntime/7.51.1"
+2026-03-30T05:05:25.622Z [[32minfo[39m]: ::1 - - [30/Mar/2026:05:05:25 +0000] "POST /api/v1/auth/resendOtp HTTP/1.1" 200 58 "-" "PostmanRuntime/7.51.1"
+2026-03-30T05:05:29.477Z [[32minfo[39m]: ::1 - - [30/Mar/2026:05:05:29 +0000] "POST /api/v1/auth/resendOtp HTTP/1.1" 429 54 "-" "PostmanRuntime/7.51.1"
+2026-03-30T05:09:39.557Z [[32minfo[39m]: ::1 - - [30/Mar/2026:05:09:39 +0000] "POST /api/v1/auth/login HTTP/1.1" 200 104 "-" "PostmanRuntime/7.51.1"
+2026-03-30T05:09:47.827Z [[32minfo[39m]: ::1 - - [30/Mar/2026:05:09:47 +0000] "POST /api/v1/auth/login HTTP/1.1" 200 104 "-" "PostmanRuntime/7.51.1"
+2026-03-30T05:10:17.707Z [[32minfo[39m]: ::1 - - [30/Mar/2026:05:10:17 +0000] "POST /api/v1/auth/verifyOtp HTTP/1.1" 200 762 "-" "PostmanRuntime/7.51.1"
+2026-03-30T05:10:37.138Z [[32minfo[39m]: ::1 - - [30/Mar/2026:05:10:37 +0000] "POST /api/v1/auth/register HTTP/1.1" 409 62 "-" "PostmanRuntime/7.51.1"
+2026-03-30T05:10:50.648Z [[32minfo[39m]: ::1 - - [30/Mar/2026:05:10:50 +0000] "POST /api/v1/auth/register HTTP/1.1" 201 507 "-" "PostmanRuntime/7.51.1"
+2026-03-30T09:34:57.783Z [[32minfo[39m]: connected to database
+2026-03-30T09:34:57.802Z [[32minfo[39m]: server running on port no. 3000
