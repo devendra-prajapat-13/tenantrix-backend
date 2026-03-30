@@ -41,6 +41,22 @@ const userSchema = new mongoose.Schema(
     lastLoginAt: {
       type: Date,
     },
+    loginAttempts: {
+      type: Number,
+      default: 0,
+    },
+    lockUntil: {
+      type: Date,
+      default: null,
+    },
+    otpResendCount: {
+      type: Number,
+      default: 0,
+    },
+    isOtpPending: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

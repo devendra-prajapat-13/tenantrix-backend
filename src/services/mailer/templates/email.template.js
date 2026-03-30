@@ -163,3 +163,45 @@ export const passwordResetSuccessTemplate = (name) => {
     </div>
   `;
 };
+
+export const accountLockTemplate = ({
+  firstName = "User",
+  retryTime = "24 hours",
+  companyName = "Tenantrix",
+}) => {
+  return `
+  <div style="font-family: Arial, sans-serif; line-height: 1.6;">
+
+    <h2>Account Locked for Security Reasons</h2>
+
+    <p>Hi ${firstName},</p>
+
+    <p>
+      You have entered an incorrect password multiple times.
+      For security reasons, your account has been temporarily locked.
+    </p>
+
+    <p>
+      Please wait <b>${retryTime}</b> before attempting to log in again.
+    </p>
+
+    <p>
+      This helps us protect your account from unauthorized access.
+    </p>
+
+    <p>
+      If this was not you, we strongly recommend resetting your password immediately.
+    </p>
+
+    <p>
+      Thank you for your understanding.
+    </p>
+
+    <p>
+      Regards,<br/>
+      ${companyName} Team
+    </p>
+
+  </div>
+  `;
+};    

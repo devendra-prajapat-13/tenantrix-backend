@@ -14,6 +14,11 @@ const otpSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
+    type: {
+      type: String,
+      enum: ["REGISTER", "LOGIN"],
+      required: true,
+    },
   },
   { timestamps: true },
 );

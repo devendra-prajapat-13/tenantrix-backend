@@ -16,6 +16,7 @@ import {
   otpTemplate,
   resetPasswordTemplate,
   passwordResetSuccessTemplate,
+  accountLockTemplate,
 } from "../../services/mailer/templates/email.template.js";
 import { PasswordReset } from "../../models/resetPassword.schema.js";
 import crypto from "crypto";
@@ -76,11 +77,11 @@ export const register = async (req, res) => {
       email,
       password: hashedPassword,
       role: USER_ROLES.OWNER,
-      organizationName:organizationName,
+      organizationName: organizationName,
       organizationId: organization._id,
       isActive: false,
     });
-    
+
     organization.ownerId = user._id;
     await organization.save();
 
@@ -91,11 +92,17 @@ export const register = async (req, res) => {
     await OTP.create({
       email,
       otp: hashedOtp,
+      type: "REGISTER",
       expiresAt: new Date(Date.now() + 10 * 60 * 1000),
     });
 
     const otpHTML = otpTemplate(otpCode, name);
     await sendMail(email, "Verify your Tenantrix Account", otpHTML);
+
+    const token = generateToken({
+      userId: user._id,
+      organizationId: organization._id,
+    });
 
     return successResponse(
       res,
@@ -110,6 +117,7 @@ export const register = async (req, res) => {
           role: user.role,
           isActive: user.isActive,
         },
+        token
       },
     );
   } catch (error) {
@@ -125,19 +133,40 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    if (!email || !password) {
-      return errorResponse(
-        res,
-        STATUS_CODES.BAD_REQUEST,
-        "Email and password are required",
-      );
-    }
+
     const user = await User.findOne({ email });
     if (!user) {
       return errorResponse(res, STATUS_CODES.UNAUTHORIZED, "User not found");
     }
+
+    // Check if locked
+    if (user.lockUntil && user.lockUntil > new Date()) {
+      return errorResponse(
+        res,
+        STATUS_CODES.FORBIDDEN,
+        "Account locked for 24 hours",
+      );
+    }
+
     const isMatch = await bcrypt.compare(password, user.password);
+
+    // WRONG PASSWORD
     if (!isMatch) {
+      user.loginAttempts += 1;
+
+      // LOCK AFTER 3 ATTEMPTS
+      if (user.loginAttempts >= 3) {
+        user.lockUntil = new Date(Date.now() + 24 * 60 * 60 * 1000);
+
+        // SEND LOCK EMAIL
+        const lockHTML = accountLockTemplate({
+          firstName: user.name,
+          retryTime: "24 hours",
+        });
+
+        await sendMail(user.email, "Account Locked - Tenantrix", lockHTML);
+      }
+      await user.save();
       return errorResponse(
         res,
         STATUS_CODES.UNAUTHORIZED,
@@ -145,30 +174,36 @@ export const login = async (req, res) => {
       );
     }
 
-    const token = generateToken({
-      userId: user._id,
-      organizationId: user.organizationId,
+    // PASSWORD CORRECT
+    user.loginAttempts = 0;
+    user.lockUntil = null;
+
+    // GENERATE OTP
+    const otpCode = generateOTP();
+    const hashedOtp = await bcrypt.hash(otpCode, 10);
+
+    await OTP.deleteMany({ email });
+
+    await OTP.create({
+      email,
+      otp: hashedOtp,
+      type: "LOGIN",
+      expiresAt: new Date(Date.now() + 10 * 60 * 1000),
     });
 
-    return successResponse(
-      res,
-      STATUS_CODES.OK,
-      "Login successful",
-      {
-        user: {
-          _id: user._id,
-          name: user.name,
-          email: user.email,
-          organizationId: user.organizationId,
-          role: user.role,
-          isActive: user.isActive,
-        },
-      },
-      { token },
-    );
-  } catch (error) {
-    console.error(error);
+    user.isOtpPending = true;
+    user.otpResendCount = 0;
 
+    await user.save();
+
+    const otpHTML = otpTemplate(otpCode, user.name);
+
+    await sendMail(email, "Login OTP - Tenantrix", otpHTML);
+
+    return successResponse(res, STATUS_CODES.OK, "We have sent you an email for two factor authentication", {
+      isOtpPending: true,
+    });
+  } catch (error) {
     return errorResponse(
       res,
       STATUS_CODES.INTERNAL_SERVER_ERROR,
@@ -188,9 +223,14 @@ export const checkUserActive = async (req, res) => {
       return errorResponse(res, STATUS_CODES.NOT_FOUND, "User not found");
     }
     if (user.isActive) {
-      return successResponse(res, STATUS_CODES.OK, "User account already verified", {
-        isActive: true,
-      });
+      return successResponse(
+        res,
+        STATUS_CODES.OK,
+        "User account already verified",
+        {
+          isActive: true,
+        },
+      );
     }
 
     // resend OTP
@@ -230,7 +270,6 @@ export const verifyOTP = async (req, res) => {
   try {
     const { email, otp } = req.body;
 
-    // Basic validation
     if (!email || !otp) {
       return errorResponse(
         res,
@@ -238,55 +277,90 @@ export const verifyOTP = async (req, res) => {
         "Email and OTP are required",
       );
     }
-    // Find OTP record by email (NOT by otp)
+
     const record = await OTP.findOne({ email });
     if (!record) {
-      return errorResponse(res, STATUS_CODES.BAD_REQUEST, "Invalid email");
+      return errorResponse(res, STATUS_CODES.BAD_REQUEST, "Invalid OTP");
     }
-    // Check expiry
+
     if (record.expiresAt < new Date()) {
       return errorResponse(res, STATUS_CODES.BAD_REQUEST, "OTP expired");
     }
-    // Compare hashed OTP
+
     const isMatch = await bcrypt.compare(otp, record.otp);
     if (!isMatch) {
       return errorResponse(res, STATUS_CODES.BAD_REQUEST, "Invalid OTP");
     }
-    // Activate user account
-    const user = await User.findOneAndUpdate(
-      { email },
-      { isActive: true },
-      { new: true },
-    );
+
+    const user = await User.findOne({ email });
     if (!user) {
       return errorResponse(res, STATUS_CODES.NOT_FOUND, "User not found");
     }
 
-    const welcomeHTML = welcomeTemplate({
-      firstName: user.name,
-      organizationName: user.organizationName,
-      dashboardUrl: `${process.env.FRONTEND_URL}/dashboard`,
-      userEmail: user.email,
-      planName: "Free",
-      workspaceUrl: `http://${user.organizationName}.${process.env.APP_DOMAIN}`,
-      companyAddress: "Indore, India",
-      companyWebsite: process.env.FRONTEND_URL,
-    });
+    // REGISTER FLOW
+    if (record.type === "REGISTER") {
+      user.isActive = true;
 
-    await sendMail(
-      user.email,
-      "Welcome to Tenantrix – Your Workspace is Ready",
-      welcomeHTML,
-    );
-    // Delete OTP after success
-    await OTP.deleteMany({ email });
-    return successResponse(
-      res,
-      STATUS_CODES.OK,
-      "Account verified successfully",
-    );
+      const welcomeHTML = welcomeTemplate({
+        firstName: user.name,
+        organizationName: user.organizationName,
+        dashboardUrl: `${process.env.FRONTEND_URL}/dashboard`,
+        userEmail: user.email,
+        planName: "Free",
+        workspaceUrl: `http://${user.organizationName}.${process.env.APP_DOMAIN}`,
+        companyAddress: "Indore, India",
+        companyWebsite: process.env.FRONTEND_URL,
+      });
+
+      await sendMail(
+        user.email,
+        "Welcome to Tenantrix – Your Workspace is Ready",
+        welcomeHTML,
+      );
+
+      await user.save();
+      await OTP.deleteMany({ email });
+
+      return successResponse(
+        res,
+        STATUS_CODES.OK,
+        "Account verified successfully",
+      );
+    }
+
+    // LOGIN FLOW (2FA)
+    if (record.type === "LOGIN") {
+      if (!user.isOtpPending) {
+        return errorResponse(
+          res,
+          STATUS_CODES.BAD_REQUEST,
+          "No login attempt found",
+        );
+      }
+
+      user.isOtpPending = false;
+      user.otpResendCount = 0;
+      user.lastLoginAt = new Date();
+
+      await user.save();
+      await OTP.deleteMany({ email });
+
+      const token = generateToken({
+        userId: user._id,
+        organizationId: user.organizationId,
+      });
+
+      return successResponse(
+        res,
+        STATUS_CODES.OK,
+        "Login successful",
+        { user },
+        { token },
+      );
+    }
+
+    return errorResponse(res, STATUS_CODES.BAD_REQUEST, "Invalid OTP type");
   } catch (error) {
-    console.error(error);
     return errorResponse(
       res,
       STATUS_CODES.INTERNAL_SERVER_ERROR,
@@ -298,37 +372,103 @@ export const verifyOTP = async (req, res) => {
 export const resendOTP = async (req, res) => {
   try {
     const { email } = req.body;
+
     if (!email) {
       return errorResponse(res, STATUS_CODES.BAD_REQUEST, "Email is required");
     }
-    // check user
+
     const user = await User.findOne({ email });
+
     if (!user) {
       return errorResponse(res, STATUS_CODES.NOT_FOUND, "User not found");
     }
-    // already verified
-    if (user.isActive) {
+
+    // Get existing OTP (to know type)
+    const existingOtp = await OTP.findOne({ email });
+
+    if (!existingOtp) {
       return errorResponse(
         res,
         STATUS_CODES.BAD_REQUEST,
-        "User already verified",
+        "No OTP request found",
       );
     }
-    // delete previous OTPs (clean approach)
-    await OTP.deleteMany({ email });
-    // generate new otp
-    const otpCode = generateOTP();
-    const saltKey = await bcrypt.genSalt(12);
-    const hashedOtp = await bcrypt.hash(otpCode, saltKey);
-    await OTP.create({
-      email,
-      otp: hashedOtp,
-      expiresAt: new Date(Date.now() + 10 * 60 * 1000),
-    });
-    // send email
-    const otpHTML = otpTemplate(otpCode, user.name);
-    await sendMail(email, "Resend OTP - Verify your Account", otpHTML);
-    return successResponse(res, STATUS_CODES.OK, "OTP resent successfully");
+
+    // LOGIN FLOW (2FA)
+    if (existingOtp.type === "LOGIN") {
+      if (!user.isOtpPending) {
+        return errorResponse(
+          res,
+          STATUS_CODES.BAD_REQUEST,
+          "No pending login found",
+        );
+      }
+
+      // Max 3 resend
+      if (user.otpResendCount >= 3) {
+        return errorResponse(
+          res,
+          STATUS_CODES.TOO_MANY_REQUESTS,
+          "OTP resend limit reached",
+        );
+      }
+
+      await OTP.deleteMany({ email });
+
+      const otpCode = generateOTP();
+      const saltKey = await bcrypt.genSalt(12);
+      const hashedOtp = await bcrypt.hash(otpCode, saltKey);
+
+      await OTP.create({
+        email,
+        otp: hashedOtp,
+        type: "LOGIN",
+        expiresAt: new Date(Date.now() + 10 * 60 * 1000),
+      });
+
+      user.otpResendCount += 1;
+      await user.save();
+
+      const otpHTML = otpTemplate(otpCode, user.name);
+      await sendMail(email, "Resend Login OTP", otpHTML);
+
+      return successResponse(
+        res,
+        STATUS_CODES.OK,
+        "Login OTP resent successfully",
+      );
+    }
+
+    //  REGISTER FLOW
+    if (existingOtp.type === "REGISTER") {
+      if (user.isActive) {
+        return errorResponse(
+          res,
+          STATUS_CODES.BAD_REQUEST,
+          "User already verified",
+        );
+      }
+
+      await OTP.deleteMany({ email });
+
+      const otpCode = generateOTP();
+      const saltKey = await bcrypt.genSalt(12);
+      const hashedOtp = await bcrypt.hash(otpCode, saltKey);
+
+      await OTP.create({
+        email,
+        otp: hashedOtp,
+        type: "REGISTER",
+        expiresAt: new Date(Date.now() + 10 * 60 * 1000),
+      });
+
+      const otpHTML = otpTemplate(otpCode, user.name);
+      await sendMail(email, "Resend OTP - Verify your Account", otpHTML);
+
+      return successResponse(res, STATUS_CODES.OK, "OTP resent successfully");
+    }
+
+    return errorResponse(res, STATUS_CODES.BAD_REQUEST, "Invalid OTP type");
   } catch (error) {
     console.error(error);
     return errorResponse(
