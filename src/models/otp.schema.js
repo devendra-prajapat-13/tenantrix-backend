@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { type } from "../services/enum/enum.js";
 
 const otpSchema = new mongoose.Schema(
   {
@@ -16,7 +17,7 @@ const otpSchema = new mongoose.Schema(
     },
     type: {
       type: String,
-      enum: ["REGISTER", "LOGIN"],
+      enum: type,
       required: true,
     },
   },
