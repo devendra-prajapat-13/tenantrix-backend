@@ -9,3 +9,8 @@ export const ORGANIZATION_PLANS = {
   PRO: "pro",
   ENTERPRISE: "enterprise",
 };
+
+export const type = {
+   REGISTER:"REGISTER",
+   LOGIN:"LOGIN"
+}

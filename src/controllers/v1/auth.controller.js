@@ -7,7 +7,7 @@ import {
   errorResponse,
 } from "../../utils/helper/apiResponse.js";
 import { STATUS_CODES } from "../../utils/helper/statusCodes.js";
-import { USER_ROLES } from "../../services/enum/enum.js";
+import { USER_ROLES, type } from "../../services/enum/enum.js";
 import { OTP } from "../../models/otp.schema.js";
 import { sendMail } from "../../services/mailer/mail.service.js";
 import { generateOTP } from "../../utils/helper/otp.js";
@@ -92,7 +92,7 @@ export const register = async (req, res) => {
     await OTP.create({
       email,
       otp: hashedOtp,
-      type: "REGISTER",
+      type: type.REGISTER,
       expiresAt: new Date(Date.now() + 10 * 60 * 1000),
     });
 
@@ -117,7 +117,7 @@ export const register = async (req, res) => {
           role: user.role,
           isActive: user.isActive,
         },
-        token
+        token,
       },
     );
   } catch (error) {
@@ -136,9 +136,14 @@ export const login = async (req, res) => {
 
     const user = await User.findOne({ email });
     if (!user) {
-      return errorResponse(res, STATUS_CODES.UNAUTHORIZED, "User not found");
+      return errorResponse(res, STATUS_CODES.NOT_FOUND, "User not found");
     }
 
+    if (!user.isActive) {
+      return successResponse(res, STATUS_CODES.OK, "Account not verfied", {
+        isActive: false,
+      });
+    }
     // Check if locked
     if (user.lockUntil && user.lockUntil > new Date()) {
       return errorResponse(
@@ -187,7 +192,7 @@ export const login = async (req, res) => {
     await OTP.create({
       email,
       otp: hashedOtp,
-      type: "LOGIN",
+      type: type.LOGIN,
       expiresAt: new Date(Date.now() + 10 * 60 * 1000),
     });
 
@@ -200,9 +205,14 @@ export const login = async (req, res) => {
 
     await sendMail(email, "Login OTP - Tenantrix", otpHTML);
 
-    return successResponse(res, STATUS_CODES.OK, "We have sent you an email for two factor authentication", {
-      isOtpPending: true,
-    });
+    return successResponse(
+      res,
+      STATUS_CODES.OK,
+      "We have sent you an email for two factor authentication",
+      {
+        isOtpPending: true,
+      },
+    );
   } catch (error) {
     return errorResponse(
       res,
@@ -215,21 +225,22 @@ export const login = async (req, res) => {
 export const checkUserActive = async (req, res) => {
   try {
     const { email } = req.body;
+
     if (!email) {
       return errorResponse(res, STATUS_CODES.BAD_REQUEST, "Email is required");
     }
     const user = await User.findOne({ email });
     if (!user) {
-      return errorResponse(res, STATUS_CODES.NOT_FOUND, "User not found");
+      return successResponse(res, STATUS_CODES.OK, "User not found", {
+        isActive: false,
+      });
     }
     if (user.isActive) {
       return successResponse(
         res,
         STATUS_CODES.OK,
         "User account already verified",
-        {
-          isActive: true,
-        },
+        { isActive: true },
       );
     }
 
@@ -243,6 +254,7 @@ export const checkUserActive = async (req, res) => {
     await OTP.create({
       email,
       otp: hashedOtp,
+      type: type.REGISTER,
       expiresAt: new Date(Date.now() + 10 * 60 * 1000),
     });
 
@@ -252,12 +264,11 @@ export const checkUserActive = async (req, res) => {
     return successResponse(
       res,
       STATUS_CODES.OK,
-      "Account not verified. OTP sent to your email",
+      "Account not verified. Please Verify Your Account Mail Sent To Email",
       { isActive: false },
     );
   } catch (error) {
     console.error(error);
-
     return errorResponse(
       res,
       STATUS_CODES.INTERNAL_SERVER_ERROR,
@@ -298,7 +309,7 @@ export const verifyOTP = async (req, res) => {
     }
 
     // REGISTER FLOW
-    if (record.type === "REGISTER") {
+    if (record.type === type.REGISTER) {
       user.isActive = true;
 
       const welcomeHTML = welcomeTemplate({
@@ -329,7 +340,7 @@ export const verifyOTP = async (req, res) => {
     }
 
     // LOGIN FLOW (2FA)
-    if (record.type === "LOGIN") {
+    if (record.type === type.LOGIN) {
       if (!user.isOtpPending) {
         return errorResponse(
           res,
@@ -372,13 +383,10 @@ export const verifyOTP = async (req, res) => {
 export const resendOTP = async (req, res) => {
   try {
     const { email } = req.body;
-
     if (!email) {
       return errorResponse(res, STATUS_CODES.BAD_REQUEST, "Email is required");
     }
-
     const user = await User.findOne({ email });
-
     if (!user) {
       return errorResponse(res, STATUS_CODES.NOT_FOUND, "User not found");
     }
@@ -395,7 +403,7 @@ export const resendOTP = async (req, res) => {
     }
 
     // LOGIN FLOW (2FA)
-    if (existingOtp.type === "LOGIN") {
+    if (existingOtp.type === type.LOGIN) {
       if (!user.isOtpPending) {
         return errorResponse(
           res,
@@ -422,7 +430,7 @@ export const resendOTP = async (req, res) => {
       await OTP.create({
         email,
         otp: hashedOtp,
-        type: "LOGIN",
+        type: type.LOGIN,
         expiresAt: new Date(Date.now() + 10 * 60 * 1000),
       });
 
@@ -440,12 +448,20 @@ export const resendOTP = async (req, res) => {
     }
 
     //  REGISTER FLOW
-    if (existingOtp.type === "REGISTER") {
+    if (existingOtp.type === type.REGISTER) {
       if (user.isActive) {
         return errorResponse(
           res,
           STATUS_CODES.BAD_REQUEST,
           "User already verified",
+        );
+      }
+
+      if (user.otpResendCount >= 3) {
+        return errorResponse(
+          res,
+          STATUS_CODES.TOO_MANY_REQUESTS,
+          "OTP resend limit reached",
         );
       }
 
@@ -458,9 +474,12 @@ export const resendOTP = async (req, res) => {
       await OTP.create({
         email,
         otp: hashedOtp,
-        type: "REGISTER",
+        type: type.REGISTER,
         expiresAt: new Date(Date.now() + 10 * 60 * 1000),
       });
+
+      user.otpResendCount += 1;
+      await user.save();
 
       const otpHTML = otpTemplate(otpCode, user.name);
       await sendMail(email, "Resend OTP - Verify your Account", otpHTML);
