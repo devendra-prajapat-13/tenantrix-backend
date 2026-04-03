@@ -204,4 +204,51 @@ export const accountLockTemplate = ({
 
   </div>
   `;
-};    
+};  
+
+export const twoFactorOtpTemplate = (
+  otpCode,
+  userName = "User",
+  companyName = "YourCompanyName"
+) => {
+  return `
+  <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 500px; margin: auto; padding: 20px;">
+    
+    <p style="margin: 0 0 10px;">Hi ${userName},</p>
+
+    <p style="margin: 0 0 10px;">We received a request to sign in to your account.</p>
+
+    <p style="margin: 0 0 10px;">To complete your login, please use the verification code below:</p>
+
+    <!-- OTP BOX -->
+    <div style="
+      background-color: #f4f4f4;
+      padding: 12px 18px;
+      display: inline-block;
+      border-radius: 6px;
+      font-size: 22px;
+      letter-spacing: 3px;
+      font-weight: bold;
+      color: #2e7d32;
+      margin: 10px 0;
+    ">
+      ${otpCode}
+    </div>
+
+    <p style="margin: 10px 0;">This code will expire in <b>10 minutes</b>.</p>
+
+    <p style="margin: 0 0 10px;">
+      If you did not request this code, please ignore this email or contact our 
+      support team immediately.
+    </p>
+
+    <p style="margin: 0 0 10px;">
+      For security reasons, please do not share this code with anyone.
+    </p>
+
+    <p style="margin: 0;">Thank you,</p>
+    <p style="margin: 0;"><b>The ${companyName} Team</b></p>
+
+  </div>
+  `;
+};

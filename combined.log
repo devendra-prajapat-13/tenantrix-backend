@@ -803,3 +803,19 @@
 2026-04-01T15:37:46.041Z [[32minfo[39m]: ::1 - - [01/Apr/2026:15:37:46 +0000] "POST /api/v1/auth/resendOtp HTTP/1.1" 200 58 "-" "PostmanRuntime/7.51.1"
 2026-04-01T15:37:53.072Z [[32minfo[39m]: ::1 - - [01/Apr/2026:15:37:53 +0000] "POST /api/v1/auth/resendOtp HTTP/1.1" 200 58 "-" "PostmanRuntime/7.51.1"
 2026-04-01T15:37:56.581Z [[32minfo[39m]: ::1 - - [01/Apr/2026:15:37:56 +0000] "POST /api/v1/auth/resendOtp HTTP/1.1" 429 54 "-" "PostmanRuntime/7.51.1"
+2026-04-03T07:04:46.579Z [[32minfo[39m]: connected to database
+2026-04-03T07:04:46.603Z [[32minfo[39m]: server running on port no. 3000
+2026-04-03T07:06:28.244Z [[32minfo[39m]: ::1 - - [03/Apr/2026:07:06:28 +0000] "POST /api/v1/auth/login HTTP/1.1" 200 104 "-" "PostmanRuntime/7.51.1"
+2026-04-03T07:13:13.945Z [[32minfo[39m]: ::1 - - [03/Apr/2026:07:13:13 +0000] "POST /api/v1/auth/login HTTP/1.1" 200 104 "-" "PostmanRuntime/7.51.1"
+2026-04-03T07:13:22.241Z [[32minfo[39m]: connected to database
+2026-04-03T07:13:22.252Z [[32minfo[39m]: server running on port no. 3000
+2026-04-03T07:14:03.831Z [[32minfo[39m]: ::1 - - [03/Apr/2026:07:14:03 +0000] "POST /api/v1/auth/login HTTP/1.1" 200 104 "-" "PostmanRuntime/7.51.1"
+2026-04-03T07:15:22.662Z [[32minfo[39m]: connected to database
+2026-04-03T07:15:22.672Z [[32minfo[39m]: server running on port no. 3000
+2026-04-03T07:15:32.707Z [[32minfo[39m]: ::1 - - [03/Apr/2026:07:15:32 +0000] "POST /api/v1/auth/login HTTP/1.1" 200 104 "-" "PostmanRuntime/7.51.1"
+2026-04-03T07:18:20.327Z [[32minfo[39m]: connected to database
+2026-04-03T07:18:20.335Z [[32minfo[39m]: server running on port no. 3000
+2026-04-03T07:19:18.878Z [[32minfo[39m]: ::1 - - [03/Apr/2026:07:19:18 +0000] "POST /api/v1/auth/login HTTP/1.1" - - "-" "PostmanRuntime/7.51.1"
+2026-04-03T07:19:30.994Z [[32minfo[39m]: connected to database
+2026-04-03T07:19:31.017Z [[32minfo[39m]: server running on port no. 3000
+2026-04-03T07:19:44.929Z [[32minfo[39m]: ::1 - - [03/Apr/2026:07:19:44 +0000] "POST /api/v1/auth/login HTTP/1.1" 200 104 "-" "PostmanRuntime/7.51.1"

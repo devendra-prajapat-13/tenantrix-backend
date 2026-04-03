@@ -17,6 +17,7 @@ import {
   resetPasswordTemplate,
   passwordResetSuccessTemplate,
   accountLockTemplate,
+  twoFactorOtpTemplate
 } from "../../services/mailer/templates/email.template.js";
 import { PasswordReset } from "../../models/resetPassword.schema.js";
 import crypto from "crypto";
@@ -201,7 +202,7 @@ export const login = async (req, res) => {
 
     await user.save();
 
-    const otpHTML = otpTemplate(otpCode, user.name);
+    const otpHTML = twoFactorOtpTemplate(otpCode, user.name,user.organizationName);
 
     await sendMail(email, "Login OTP - Tenantrix", otpHTML);
 
@@ -291,7 +292,7 @@ export const verifyOTP = async (req, res) => {
 
     const record = await OTP.findOne({ email });
     if (!record) {
-      return errorResponse(res, STATUS_CODES.BAD_REQUEST, "Invalid OTP");
+      return errorResponse(res, STATUS_CODES.BAD_REQUEST, "Invalid Email");
     }
 
     if (record.expiresAt < new Date()) {
