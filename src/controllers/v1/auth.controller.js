@@ -17,7 +17,7 @@ import {
   resetPasswordTemplate,
   passwordResetSuccessTemplate,
   accountLockTemplate,
-  twoFactorOtpTemplate
+  twoFactorOtpTemplate,
 } from "../../services/mailer/templates/email.template.js";
 import { PasswordReset } from "../../models/resetPassword.schema.js";
 import crypto from "crypto";
@@ -100,15 +100,10 @@ export const register = async (req, res) => {
     const otpHTML = otpTemplate(otpCode, name);
     await sendMail(email, "Verify your Tenantrix Account", otpHTML);
 
-    const token = generateToken({
-      userId: user._id,
-      organizationId: organization._id,
-    });
-
     return successResponse(
       res,
       STATUS_CODES.CREATED,
-      "Registration successful. Please verify OTP sent to your Email",
+      "Registration successful. Please verify the OTP sent to your email to complete the registration process.",
       {
         user: {
           _id: user._id,
@@ -118,7 +113,6 @@ export const register = async (req, res) => {
           role: user.role,
           isActive: user.isActive,
         },
-        token,
       },
     );
   } catch (error) {
@@ -150,7 +144,7 @@ export const login = async (req, res) => {
       return errorResponse(
         res,
         STATUS_CODES.FORBIDDEN,
-        "Account locked for 24 hours",
+        "You have reached the maximum limit. Your account has been locked for 24 hours.",
       );
     }
 
@@ -202,7 +196,11 @@ export const login = async (req, res) => {
 
     await user.save();
 
-    const otpHTML = twoFactorOtpTemplate(otpCode, user.name,user.organizationName);
+    const otpHTML = twoFactorOtpTemplate(
+      otpCode,
+      user.name,
+      user.organizationName,
+    );
 
     await sendMail(email, "Login OTP - Tenantrix", otpHTML);
 
@@ -313,6 +311,11 @@ export const verifyOTP = async (req, res) => {
     if (record.type === type.REGISTER) {
       user.isActive = true;
 
+      const token = generateToken({
+        userId: user._id,
+        organizationId: user.organizationId,
+      });
+
       const welcomeHTML = welcomeTemplate({
         firstName: user.name,
         organizationName: user.organizationName,
@@ -336,7 +339,18 @@ export const verifyOTP = async (req, res) => {
       return successResponse(
         res,
         STATUS_CODES.OK,
-        "Account verified successfully",
+        "Account verified successfully. A welcome email has been sent.",
+        {
+          user: {
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            role: user.role,
+            organizationId: user.organizationId,
+            isActive: user.isActive,
+          },
+          token,
+        },
       );
     }
 
